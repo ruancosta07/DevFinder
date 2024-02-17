@@ -1,0 +1,19 @@
+<header class="py-6 mb-[160px]">
+    <div class="container-width flex justify-between items-center">
+        <a href="/" class="logo text-[2rem] text-gray-13">DevFinder</a>
+        {{#if token}}
+        <ul class="flex gap-5 text-[1.2rem] text-gray-13 items-center">
+            <li><a href="/ver-vagas">Ver vagas</a></li>
+            <li><a href="/anunciar-vaga">Anunciar vaga</a></li>
+            <li><a href="/minha-conta" class="bg-blue-10 px-4 py-2 rounded text-gray-1">Minha conta</a></li>
+        </ul>
+        {{else}}
+            <ul class="flex gap-5 text-[1.2rem] text-gray-13 items-center">
+            <li><a href="/ver-vagas">Ver vagas</a></li>
+            <li><a href="/anunciar-vaga">Anunciar vaga</a></li>
+            <li><a href="/login">Login</a></li>
+            <li><a href="/criar-conta" class="bg-blue-10 px-4 py-2 rounded text-gray-1">Criar conta</a></li>
+        </ul>
+        {{/if}}
+    </div>
+</header>
