@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar conta</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="./css/tailwind.css">
+    <link rel="stylesheet" href="./css/remixicon/fonts/remixicon.css">
+    <script src="/scripts/criarConta.js" defer></script>
+    <script src="/scripts/animate.js" defer></script>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon">
+</head>
+<body>
+    {{>header}}
+    <main id="criar-conta" class="container-width grid grid-cols-2">
+        <form action="/login" method="post" class="">
+        <div class="mb-9 relative w-[60%]">
+            <div>
+                <input type="email" name="email" id="email" autocomplete="off">
+                <label for="email">Email</label>
+                <i class="ri-mail-line absolute right-4 top-2/4 -translate-y-2/4 text-[1.1rem] text-gray-9"></i>
+            </div>
+        </div>
+        <div class="mb-8 relative w-[60%]">
+            <div><input type="password" name="password" id="password"  autocomplete="new-password">
+            <label for="password">Senha</label>
+            <i id="verSenha" class="ri-eye-line cursor-pointer absolute right-4 top-2/4 -translate-y-2/4 text-[1.1rem] text-gray-9"></i>
+            <i id="esconderSenha" class="ri-eye-off-line cursor-pointer absolute right-4 top-2/4 -translate-y-2/4 text-[1.1rem] text-gray-9 hidden"></i></div>
+        </div>
+        <button id="btn-criar-conta" type="submit" class="block mt-12 w-[60%] py-4 rounded text-neutral-50 text-[1.35rem]">Fazer login</button>
+        </form>
+        <picture class="relative bottom-8">
+            <img src="/assets/images/banner-login.svg" alt="" width="600">
+        </picture>
+        {{!-- {{#if userSuccess}}
+        <span class="flashMsg bg-green-600 text-neutral-50 px-4 py-2 rounded fixed -right-full bottom-8"><i class="ri-checkbox-circle-line mr-1"></i>{{userSuccess}}</span>
+        {{/if}}
+        {{#if emailExists}}
+        <span class="flashMsg bg-red-600 text-neutral-50 px-4 py-2 rounded fixed -right-full bottom-8"><i class="ri-error-warning-line mr-1"></i>{{emailExists}}</span>
+        {{/if}} --}}
+        {{#if password_incorrect}}
+            <span class="flashMsg bg-red-600 text-neutral-50 px-4 py-2 rounded fixed -right-full bottom-8"><iclass="ri-error-warning-line mr-1"></i>{{password_incorrect}}</span>
+        {{/if}}
+    </main>
+</body>
+</html>
