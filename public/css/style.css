@@ -1,0 +1,233 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+:root{
+        --gray-1: #ffffff;
+        --gray-2: #f2f2f2;
+        --gray-3: #e6e6e6;
+        --gray-4: #d6d6d6;
+        --gray-5: #c7c7c7;
+        --gray-6: #b8b8b8;
+        --gray-7: #a3a3a3;
+        --gray-8: #7a7a7a;
+        --gray-9: #6b6b6b;
+        --gray-10: #5c5c5c;
+        --gray-11: #4d4d4d;
+        --gray-12: #3d3d3d;
+        --gray-13: #2e2e2e;
+        --gray-14: #1f1f1f;
+        --gray-15: #0f0f0f;
+        --gray-16: #000000;
+        --blue-1: #EDF3FF;
+        --blue-2: #D1DFFF;
+        --blue-3: #B0C5FF;
+        --blue-4: #8CA9F9;
+        --blue-5: #6B8CE8;
+        --blue-6: #6179DC;
+        --blue-7: #5169CB;
+        --blue-8: #3D55B8;
+        --blue-9: #2F48AD;
+        --blue-10: rgb(17, 0, 255);
+        --blue-11: #1B3497;
+        --blue-12: #0C227E;
+        --blue-13: #051863;
+        --blue-14: #00104E;
+        --blue-15: #000A3F;
+        --blue-16: #000832;
+        --blue-17: #00051D;
+}
+
+.container-width {
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+a,
+h1,h2, h3,
+span, label, button {
+    font-family: Poppins !important;
+}
+
+h1{
+    @apply text-gray-14;
+}
+
+p, li{
+    @apply text-gray-12;
+}
+
+a {
+    font-family: "Cabin";
+    display: inline-block;
+    font-weight: 500;
+}
+
+p, li {
+    font-family: "Rubik";
+}
+
+input:not(input[type="radio"]), select, textarea{
+    box-shadow: 0 0 0 1.5px rgba(0, 0, 0, .45);
+    outline: none;
+    padding: 12px;
+    border-radius: 2px;
+    font-family: "Rubik";
+    width: 100%;
+}
+
+
+main#criar-conta picture{
+
+}
+
+main#criar-conta label:not([for="recrutador"], [for="candidato"]){
+    position: absolute;
+    font-size: .95rem;
+    @apply text-gray-9;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: .25s ease;
+}
+
+main#criar-conta input:not(input[type="radio"]):focus{
+    box-shadow: 0 0 0 1.5px #407BFF !important;
+}
+
+.inputAtivo{
+    box-shadow: 0 0 0 1.5px #407BFF !important;
+}
+
+ input:not(input[type="radio"]):focus ~ label:not([for="recrutador"], [for="candidato"]){
+    top: -5% !important;
+    transform: translateY(-70%);
+    background-color: #fff;
+    color: #407BFF !important;
+}
+
+.labelAtivo{
+    top: -5% !important;
+    transform: translateY(-70%);
+    background-color: #fff;
+    color: #407BFF !important;
+}
+
+main#criar-conta button, #btn-postar-vaga, #adicionarRequisito, #btn-buscar-vaga{
+    background: linear-gradient(45deg, #407BFF, #2F48AD);
+}
+
+#btn-criar-conta{
+    box-shadow: 0 2px 4px 1.5px rgba(0, 0, 0, .15);
+}
+
+.gradient{
+    background: linear-gradient(45deg, #407BFF, #2F48AD);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.error{
+    box-shadow: 0 0 0 1.5px rgb(220, 38, 38) !important;
+}
+
+.errorLabel{
+    color: rgb(220, 38, 38) !important;
+}
+
+input[type="radio"]{
+    width: 14px;
+    @apply accent-blue-10;
+    cursor: pointer;
+}
+
+.flashMsg{
+    transition: .35s ease;
+}
+
+.animateFlash{
+    animation: flash;
+}
+
+@keyframes flashIn {
+    0% {
+        right: -100%;
+    }
+
+    50% {
+        right: 82px;
+    }
+
+    100% {
+        right: 32px;
+    }
+}
+
+@keyframes flashOut {
+    0% {
+        right: 32px;
+    }
+
+    50% {
+        right: 60px;
+    }
+
+    100% {
+        right: -100%;
+    }
+}
+
+
+
+.flashIn {
+    animation: flashIn .7s ease forwards;
+}
+
+.flashOut {
+    animation: flashOut .7s ease forwards;
+}
+
+
+.vaga{
+    box-shadow: 0 0 1.3px 1.25px rgba(0, 0, 0, .35);
+    border-radius: 4px;
+    padding: 24px;
+    min-height: 320px;
+    transition: .35s ease;
+}
+
+.vaga:hover{
+    box-shadow: 0 0 1.5px 1.5px var(--blue-10);
+}
+
+#anunciarVaga :where(input, textarea){
+    font-size: 1.25rem;
+    padding: 8px 12px !important;
+    height: 48px !important;
+}
+
+#solucoes {
+    display: grid;
+    grid-template-columns: .6fr 1fr;
+    gap: 12px 40px;
+}
+
+#solucoes img{
+    box-shadow: 0 8px 12px 1px rgba(0, 0, 0, .25);
+    border-radius: 12px;
+}
+
+#ver-vagas form{
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 20px;
+}
+
+/* h1.resultado {
+    grid-column: span !important;
+
+    position: absolute;
+} */
