@@ -1,0 +1,45 @@
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  purge: ["./src/templates/**/*.{html,hbs,js}", "./public/scripts/**/*.{hbs,js}"],
+  theme: {
+    extend: {
+      colors:{
+        'gray-1': '#ffffff',
+        'gray-2': '#f2f2f2',
+        'gray-3': '#e6e6e6',
+        'gray-4': '#d6d6d6',
+        'gray-5': '#c7c7c7',
+        'gray-6': '#b8b8b8',
+        'gray-7': '#a3a3a3',
+        'gray-8': '#7a7a7a',
+        'gray-9': '#6b6b6b',
+        'gray-10': '#5c5c5c',
+        'gray-11': '#4d4d4d',
+        'gray-12': '#3d3d3d',
+        'gray-13': '#2e2e2e',
+        'gray-14': '#1f1f1f',
+        'gray-15': '#0f0f0f',
+        'gray-16': '#000000',
+        "blue-1": "#EDF3FF",
+        "blue-2": "#D1DFFF",
+        "blue-3": "#B0C5FF",
+        "blue-4": "#8CA9F9",
+        "blue-5": "#6B8CE8",
+        "blue-6": "#6179DC",
+        "blue-7": "#5169CB",
+        "blue-8": "#3D55B8",
+        "blue-9": "#2F48AD",
+        "blue-10": "rgb(17, 0, 255)",
+        "blue-11": "#1B3497",
+        "blue-12": "#0C227E",
+        "blue-13": "#051863",
+        "blue-14": "#00104E",
+        "blue-15": "#000A3F",
+        "blue-16": "#000832",
+        "blue-17": "#00051D",
+      }
+    },
+  },
+  plugins: [],
+}
+
