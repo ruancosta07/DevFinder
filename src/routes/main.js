@@ -257,6 +257,7 @@ main.post("/ver-vagas", async (req, res) => {
   });
 });
 
+
 // main.post('/ver-vagas/filter', (req, res)=>{
 //   const {searchVaga, min, max} = req.body
 //   Vaga.find({title: {$regex: searchVaga, $options: 'i'}, salary: {$gte: min, $lte: max}}).sort({title: 'asc'}).then((vagasEncontradas)=>{
