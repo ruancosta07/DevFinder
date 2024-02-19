@@ -47,7 +47,7 @@
 }
 
 a,
-h1,h2, h3,
+h1,h2, h3, h4,
 span, label, button {
     font-family: Poppins !important;
 }
@@ -70,12 +70,19 @@ p, li {
     font-family: "Rubik";
 }
 
-input:not(input[type="radio"]), select, textarea{
+header li{
+    font-family: Poppins !important;
+}
+
+input:not(input[type="radio"], input[type="checkbox"]), select, textarea{
     box-shadow: 0 0 0 1.5px rgba(0, 0, 0, .45);
     outline: none;
     padding: 12px;
-    border-radius: 2px;
+    border-radius: 5px;
     font-family: "Rubik";
+    font-size: 1.05;
+    font-weight: 500;
+    color: var(--gray-11);
     width: 100%;
 }
 
@@ -84,7 +91,7 @@ main#criar-conta picture{
 
 }
 
-main#criar-conta label:not([for="recrutador"], [for="candidato"]){
+form:not(.filtros) label:not([for="recrutador"], [for="candidato"]){
     position: absolute;
     font-size: .95rem;
     @apply text-gray-9;
@@ -94,18 +101,19 @@ main#criar-conta label:not([for="recrutador"], [for="candidato"]){
     transition: .25s ease;
 }
 
-main#criar-conta input:not(input[type="radio"]):focus{
-    box-shadow: 0 0 0 1.5px #407BFF !important;
+form:not(.filtros) input:not(input[type="radio"], input[type="checkbox"]):focus{
+    box-shadow: 0 0 0 1.8px #407BFF  !important;
 }
 
 .inputAtivo{
     box-shadow: 0 0 0 1.5px #407BFF !important;
 }
 
- input:not(input[type="radio"]):focus ~ label:not([for="recrutador"], [for="candidato"]){
+ input:not(input[type="radio"], input[type="checkbox"]):focus ~ label:not([for="recrutador"], [for="candidato"]){
     top: -5% !important;
     transform: translateY(-70%);
     background-color: #fff;
+    padding: 4px 8px;
     color: #407BFF !important;
 }
 
@@ -191,7 +199,7 @@ input[type="radio"]{
 }
 
 
-.vaga{
+.vagaCard{
     box-shadow: 0 0 1.3px 1.25px rgba(0, 0, 0, .35);
     border-radius: 4px;
     padding: 24px;
@@ -199,7 +207,7 @@ input[type="radio"]{
     transition: .35s ease;
 }
 
-.vaga:hover{
+.vagaCard:hover{
     box-shadow: 0 0 1.5px 1.5px var(--blue-10);
 }
 
@@ -220,14 +228,235 @@ input[type="radio"]{
     border-radius: 12px;
 }
 
-#ver-vagas form{
+#ver-vagas form:not(.filtros){
     display: grid;
     grid-template-columns: 1fr auto;
     gap: 20px;
 }
 
-/* h1.resultado {
-    grid-column: span !important;
+.vagaExpanded{
+    box-shadow: 0 0 0 1.5px rgba(0, 0, 0, .35);
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 1000px;
+}
 
+.vaga-ativa.on{
+    height: 100dvh;
+    width: 100dvw;
+    position: fixed;
+    background-color: rgba(0, 0, 0, .55);
+    top: 0;
+}
+
+@keyframes vagaExpandedAnimate{
+    0%{
+        left: 40%;
+        opacity: 0%;
+    }
+    50%{
+        left: 50%;
+    }
+    100%{
+        left: 50%;
+    }
+}
+
+.animate{
+    animation: vagaExpandedAnimate .75s ease forwards;
+}
+
+input[name="searchVaga"]{
+    padding: 8px 12px !important;
+}
+
+footer :where(h1, a){
+    color: var(--gray-1);
+}
+
+.tipoConta::before{
+    content: '';
+    display: inline-block;
+    height: 90%;
+    bottom: 10%;
+    width: 4px;
+    border-radius: 4px;
+    background-color: var(--blue-10);
     position: absolute;
-} */
+    left: 0;
+}
+
+#criar-conta form{
+    position: relative;
+    left: -50%;
+    transform: translateX(70%);
+}
+
+#criar-conta{
+    box-shadow: 0 2px 8px 2px rgba(0, 0, 0, .20);
+    border-radius: 12px;
+}
+
+#criar-conta picture{
+    background: linear-gradient(45deg, var(--blue-3), var(--blue-7)) !important;
+}
+
+#login {
+    box-shadow: 0 2px 8px 2px rgba(0, 0, 0, .20);
+    border-radius: 12px;
+}
+
+#login picture{
+    background: linear-gradient(45deg, var(--blue-3), var(--blue-7)) !important;
+    border-radius: 0 12px 12px 0;
+}
+
+#login form{
+    position: relative;
+    left: -50%;
+    transform: translateX(70%);
+}
+
+#ver-vagas .filtros{
+    background: linear-gradient(-45deg, #0096c7, var(--blue-14));
+    /* box-shadow: 0 0 0 2px rgba(0, 0, 0, .15); */
+    border-radius: 8px;
+    color: var(--gray-1) !important;
+}
+
+  .checkbox-wrapper-4 * {
+    box-sizing: border-box;
+  }
+
+  .checkbox-wrapper-4 .cbx {
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: pointer;
+    padding: 0 1px;
+    border-radius: 6px;
+    overflow: hidden;
+    transition: all 0.2s ease;
+    display: inline-block;
+  }
+  .checkbox-wrapper-4 .cbx:not(:last-child) {
+    margin-right: 6px;
+  }
+  /* .checkbox-wrapper-4 .cbx:hover {
+    background: rgba(0,119,255,0.06);
+  } */
+  .checkbox-wrapper-4 .cbx span {
+    float: left;
+    vertical-align: middle;
+    transform: translate3d(0, 0, 0);
+  }
+  .checkbox-wrapper-4 .cbx span:first-child {
+    position: relative;
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    transform: scale(1);
+    border: 1px solid #cccfdb;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 1px rgba(0,16,75,0.05);
+  }
+  .checkbox-wrapper-4 .cbx span:first-child svg {
+    position: absolute;
+    top: 3px;
+    left: 2px;
+    fill: none;
+    stroke: #fff;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 16px;
+    stroke-dashoffset: 16px;
+    transition: all 0.3s ease;
+    transition-delay: 0.1s;
+    transform: translate3d(0, 0, 0);
+  }
+  .checkbox-wrapper-4 .cbx span:last-child {
+    padding-left: 8px;
+    line-height: 18px;
+  }
+  .checkbox-wrapper-4 .cbx:hover span:first-child {
+    border-color: #07f;
+  }
+  .checkbox-wrapper-4 .inp-cbx {
+    position: absolute;
+    visibility: hidden;
+  }
+  .checkbox-wrapper-4 .inp-cbx:checked + .cbx span:first-child {
+    background: #07f;
+    border-color: #07f;
+    animation: wave-4 0.4s ease;
+  }
+  .checkbox-wrapper-4 .inp-cbx:checked + .cbx span:first-child svg {
+    stroke-dashoffset: 0;
+  }
+  .checkbox-wrapper-4 .inline-svg {
+    position: absolute;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+    user-select: none;
+  }
+  @-moz-keyframes wave-4 {
+    50% {
+      transform: scale(0.9);
+    }
+  }
+  @-webkit-keyframes wave-4 {
+    50% {
+      transform: scale(0.9);
+    }
+  }
+  @-o-keyframes wave-4 {
+    50% {
+      transform: scale(0.9);
+    }
+  }
+  @keyframes wave-4 {
+    50% {
+      transform: scale(0.9);
+    }
+  }
+
+  .filtros select{
+    box-shadow: none;
+    color: var(--gray-10);
+    -webkit-appearance: none !important;
+    appearance: none;
+    padding: 12px 16px;
+    font-size: 1.05rem;
+  }
+
+  .nivel input{
+    line-height: 0 !important;
+    box-shadow: none !important;
+    padding: 16px 12px 16px 40px !important;
+  }
+
+  .nivel input[type="number"]::-webkit-inner-spin-button{
+    -webkit-appearance: none; 
+  }
+
+
+  .actions-account{
+    box-shadow: 0 1px 4px 1px rgba(0, 0, 0, .25);
+    border-radius: 4px;
+    transition: .35s ease;
+  }
+
+  .actions-account div{
+    padding: 8px 12px;
+  }
+
+  .actions-account div:hover{
+    background-color: var(--gray-5);
+  }
+
+  .actions-account div:last-child:hover{
+    background-color: red;
+    color: #fff;
+  }
