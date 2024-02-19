@@ -7,13 +7,13 @@
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/tailwind.css">
     <link rel="stylesheet" href="/css/remixicon/fonts/remixicon.css">
-    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon">
+    <script src="/scripts/verVaga.js" defer></script>
     <script src="/scripts/home.js" defer></script>
-    <script src="/scripts/auth.js" defer></script>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon">
 </head>
 <body>
     {{>header}}
-    <main>
+    <main class="mt-[180px] mb-[200px]">
         <div class="container-width grid grid-cols-2">
             <article>
                 <h1 class="text-[4rem] leading-[1.115] font-medium mb-6">Encontre as melhores vagas na área da programação.</h1>
@@ -21,7 +21,7 @@
                 <a href="" class="bg-blue-10 text-gray-1 text-[1.25rem] px-4 py-2 rounded mt-6">Encontrar suas vagas</a>
             </article>
             <picture>
-                <img src="/assets/images/banner-home.svg" alt="" class="relative bottom-32">
+                <img src="/assets/images/banner-home.svg" alt=""  class="relative bottom-12">
             </picture>
         </div>
     </main>
@@ -29,10 +29,10 @@
     <section id="grid-vagas" class="container-width grid grid-cols-3 gap-5 mb-[120px]">
         <div class="col-span-full flex justify-between items-center mb-3">
         <h1 class="text-[3rem] font-medium">Vagas recentes</h1>
-        <a href="/vagas" class="text-[1.2rem]">Ver mais <i class="ri-arrow-right-line"></i></a>
+        <a href="/ver-vagas" class="text-[1.2rem]">Ver mais <i class="ri-arrow-right-line"></i></a>
         </div>
         {{#each vagas}}
-        <div class="vaga relative grid">
+        <div class="vagaCard relative grid cursor-pointer" data-id="{{this.id}}">
             <div class="content">
             <h1 class="text-[1.45rem] font-medium">{{this.title}}</h1>
             <h2 class="mb-3">{{this.enterprise}}</h2>
@@ -51,6 +51,30 @@
         </div>
         {{/each}}
     </section>
+
+    <section class="container-width grid gap-8">
+          {{#each vagas}}
+          <div class="vagaExpanded rounded-md z-[2] hidden bg-gray-1 p-8" data-id="{{this.id}}">
+            <div class="content">
+            <h1 class="text-[2.85rem] font-medium">{{this.title}}</h1>
+            <h2 class="mb-3 text-[1.2rem]">{{this.enterprise}}</h2>
+            <h4 class="text-[2rem] mt-3 mb-1">Descrição da vaga</h4>
+            <p class="text-gray-12 text-[1.15rem] mb-5">{{this.description}}</p>
+            <h3 class="text-[1.35rem]">Requisitos e atribuições:</h3>
+            <ul class="mb-5">
+            {{#each (split this.requirements '§')}}
+              <li class="list-disc ml-5 text-[1.15rem]">{{this}}</li>
+            {{/each}}
+            </ul>
+            </div>
+          <div class="tags flex absolute right-6 bottom-6 gap-2 font-medium">
+            <span class="text-gray-12 bg-gray-6 rounded py-[2px] px-3 text-[.95rem]">R$ {{this.salary}}</span>
+            <span class="text-gray-12 bg-gray-6 rounded py-[2px] px-3 text-[.95rem]">{{this.level}}</span>
+          </div>
+          <a href="/vagas/{{this.id}}" class="bg-blue-10 px-4 py-1 h-fit w-fit text-gray-1 rounded mt-auto text-[1.15rem]">Candidatar-se</a>
+        </div>
+          {{/each}}
+        </section>
 
     <section id="solucoes" class="container-width">
         <h1 class="text-[3rem] col-span-full">Soluções para sua empresa</h1>
@@ -74,5 +98,7 @@
             </div>
         </div>
     </section>
+    {{>footer}}
+    <div class="vaga-ativa"></div>
 </body>
 </html>
