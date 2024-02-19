@@ -1,7 +1,7 @@
 const main = require("express").Router();
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
-const JWT_KEY = process.env.JWT_KEY
+const JWT_KEY = process.env.JWT_KEY;
 require("../models/Usuario");
 require("../models/Vaga");
 const Usuario = mongoose.model("usuarios");
@@ -18,7 +18,7 @@ main.get("/", (req, res) => {
 });
 
 main.get("/criar-conta", (req, res) => {
-  res.render("criar-conta");
+  res.render("criar-conta", { token: req.cookies.token });
 });
 
 main.post("/criar-conta", async (req, res) => {
@@ -75,11 +75,9 @@ main.post("/criar-conta", async (req, res) => {
         .save()
         .then(() => {
           req.flash("userSuccess", "Conta criada com sucesso!");
-          console.log("Usuário adicionado com sucesso");
           res.redirect("/criar-conta");
         })
         .catch((err) => {
-          console.log("Erro ao cadastrar");
           throw err;
         });
     }
@@ -93,31 +91,34 @@ main.get("/users", (req, res) => {
 });
 
 function checkRole(role) {
-  return function(req, res, next) {
+  return function (req, res, next) {
     // Verifique o token do usuário
     const token = req.cookies.token;
     if (!token) {
-      return res.status(401).send('Acesso negado. Nenhum token fornecido.');
+      return res.redirect("/login");
     }
 
-    // Verifique o papel do usuário
     try {
       const decoded = jwt.verify(token, `${JWT_KEY}`);
       if (decoded.role !== role) {
-        return res.status(403).send('Acesso negado. Você não tem permissão para acessar esta rota.');
+        return res
+          .status(403)
+          .send(
+            "Acesso negado. Você não tem permissão para acessar esta rota."
+          );
       }
       next();
     } catch (ex) {
-      res.status(400).send('Token inválido.');
+      res.status(400).send("Token inválido.");
     }
   };
 }
 
-main.get("/anunciar-vaga", checkRole('recrutador'), (req, res) => {
-  res.render("anunciar-vaga");
+main.get("/anunciar-vaga", checkRole("recrutador"), (req, res) => {
+  res.render("anunciar-vaga", { token: req.cookies.token });
 });
 
-main.post("/anunciar-vaga",  (req, res) => {
+main.post("/anunciar-vaga", (req, res) => {
   const novaVaga = {
     title: req.body.title,
     enterprise: req.body.enterprise,
@@ -130,66 +131,143 @@ main.post("/anunciar-vaga",  (req, res) => {
   Vaga.create(novaVaga).then(() => {
     req.flash("vagaSuccess", "Vaga cadastrada com sucesso!");
     res.redirect("/anunciar-vaga");
-    console.log("Vaga cadastrada");
   });
 });
 
 main.get("/login", (req, res) => {
-  res.render("login");
+  res.render("login", { token: req.cookies.token });
 });
 
 main.post("/login", (req, res) => {
   const { email, password } = req.body;
-  Usuario.findOne({ email })
-    .select("+password")
-    .then((user) => {
-      if (user) {
-        bcrypt.compare(password, user.password, (err, isMatch) => {
-          if (err) {
-            console.log(err);
-          } else if (isMatch) {
-            const tokenUser = jwt.sign(
-              { email: user.email, password: user.password, role:user.role },
-              `${JWT_KEY}`,
-              { expiresIn: "5m" }
-            );
-            req.session.token = tokenUser;
-            res.cookie("token", tokenUser, {
-              httpOnly: true,
-              secure: false,
-              maxAge: 300000
-            });
-            res.redirect('/')
-            console.log("Senha correta");
-          } else {
-            req.flash('password_incorrect', 'Senha incorreta')
-            res.redirect('/login')
-          }
-        });
-      } else {
-        console.log("Usuário não encontrado");
-      }
+
+  let erros = {};
+
+  if (!email || typeof email == undefined || email == null) {
+    erros.email_error = "Preencha o campo acima";
+  }
+
+  if (!password || typeof password == undefined || password == null) {
+    erros.password_error = "Preencha o campo acima";
+  }
+
+  if (Object.values(erros).length > 0) {
+    res.render("login", { erros });
+  } else {
+    Usuario.findOne({ email })
+      .select("+password")
+      .then((user) => {
+        if (user) {
+          bcrypt.compare(password, user.password, (err, isMatch) => {
+            if (err) {
+              req.flash("password_incorrect", "Senha incorreta");
+              return res.redirect("/login");
+            }
+            
+            if (!isMatch) {
+              req.flash("password_incorrect", "Senha incorreta");
+              return res.redirect("/login");
+            }
+
+            else if (isMatch) {
+              const tokenUser = jwt.sign(
+                { email: user.email, password: user.password, role: user.role },
+                `${JWT_KEY}`,
+                { expiresIn: "5m" }
+              );
+              req.session.token = tokenUser;
+              res.cookie("token", tokenUser, {
+                httpOnly: true,
+                secure: false,
+                maxAge: 600000,
+              });
+              res.redirect("/");
+            }
+          });
+        } else {
+          req.flash("user_not_found", "Usuário não encontrado");
+          res.redirect("/login");
+        }
+      });
+  }
+});
+
+main.get("/ver-vagas", (req, res) => {
+  Vaga.find()
+    .sort({ date: "desc" })
+    .then((vagas) => {
+      res.render("ver-vagas", { vagas, token: req.cookies.token });
     });
 });
 
-main.get('/ver-vagas', (req, res)=>{
-  Vaga.find().sort({date: 'desc'}).then((vagas)=>{
-  res.render('ver-vagas', {vagas})
-  })
-})
+main.get("/logout", function (req, res) {
+  res.clearCookie("token");
+  res.redirect("/");
+});
 
-main.post('/ver-vagas', (req, res)=>{
-  const {searchVaga} = req.body
-  Vaga.find({title: {$regex: searchVaga, $options: 'i'}}).sort({title: 'asc'}).then((vagasEncontradas)=>{
-    res.render('ver-vagas', {vagasEncontradas, searchVaga: searchVaga})
-    console.log(searchVaga);
-    console.log('vagas encontradas');
-  })
-})
+main.post("/ver-vagas", async (req, res) => {
+  let { searchVaga, min, max, level, front, back, full } = req.body;
 
+  // Cria um objeto de consulta vazio
+  let query = {};
 
-main.get('/vagas/:id', (req, res)=>{
-  res.render('/vaga')
-})
+  // Se searchVaga existe, adiciona ao objeto de consulta
+  if (searchVaga) {
+    query.title = { $regex: new RegExp(searchVaga, "i") };
+  }
+
+  // Se min e max existem, adiciona ao objeto de consulta
+  if (min && max) {
+    query.salary = { $gte: Number(min), $lte: Number(max) };
+  }
+
+  // Se level existe, adiciona ao objeto de consulta
+  if (level) {
+    query.level = level;
+  }
+
+  // Se front, back ou full existem, adiciona ao objeto de consulta
+  let titleRegex = [];
+  if (front) titleRegex.push(new RegExp("Front", "i"));
+  if (back) titleRegex.push(new RegExp("Back", "i"));
+  if (full) titleRegex.push(new RegExp("Full", "i"));
+  if (titleRegex.length > 0) query.title = { $in: titleRegex };
+
+  const vagasEncontradas = await Vaga.find(query).sort({ title: "asc" });
+
+  const quantidade = await Vaga.countDocuments(query);
+
+  // Vaga.find(query)
+  //   .sort({ title: 'asc' })
+  //   .then((vagasEncontradas) => {
+  //     Vaga.countDocuments().then((quantidade) => {
+  //       res.render('ver-vagas', { vagasEncontradas, quantidade, searchVaga, min, max, front, back, full, level });
+  //     });
+  //   });
+  res.render("ver-vagas", {
+    vagasEncontradas,
+    quantidade,
+    searchVaga,
+    min,
+    max,
+    front,
+    back,
+    full,
+    level,
+  });
+});
+
+// main.post('/ver-vagas/filter', (req, res)=>{
+//   const {searchVaga, min, max} = req.body
+//   Vaga.find({title: {$regex: searchVaga, $options: 'i'}, salary: {$gte: min, $lte: max}}).sort({title: 'asc'}).then((vagasEncontradas)=>{
+//     Vaga.countDocuments().then((quantidade)=>{
+//       res.render('ver-vagas', {vagasEncontradas, quantidade, searchVaga: searchVaga})
+//     })
+//   })
+// })
+
+main.get("/vagas/:id", (req, res) => {
+  res.render("/vaga");
+});
 
 module.exports = main;
