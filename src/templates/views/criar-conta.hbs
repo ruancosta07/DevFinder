@@ -13,8 +13,9 @@
 </head>
 <body>
     {{>header}}
-    <main id="criar-conta" class="container-width grid grid-cols-2">
-        <form action="/criar-conta" method="post" class="">
+    <main id="criar-conta" class="container-width grid grid-cols-2 mt-[80px] relative justify-center w-[1200px]">
+        <form action="/criar-conta" method="post" class="m-auto w-full py-16">
+        <h1 class="col-span-full mb-5 text-[2.75rem] text-center w-[60%] font-semibold tracking-[.25px] text-blue-8">Criar <span class="text-gray-12">conta</span></h1>
         {{!-- <h1 class="text-[4.5rem] relative bottom-16 font-semibold">Criar <span class="gradient">conta</span></h1> --}}
         <div class="mb-9 relative w-[60%]">
             <div>
@@ -47,13 +48,13 @@
             {{/if}}
         </div>
         <div class="role mt-3 text-gray-12 text-[1.15rem] relative w-[40%]">
-            <span class="col-span-full text-[1.35rem]">Tipo de conta</span>
+            <span class="col-span-full text-[1.15rem] pl-3 tipoConta relative">Tipo de conta</span>
                 <div class=" grid grid-cols-2 mt-3">
-            <div class="flex gap-1">
+            <div class="flex gap-2 text-[1.08rem]">
                 <input type="radio" name="role" id="candidato" value="candidato">
                 <label for="candidato" class="cursor-pointer">Candidato</label>
             </div>
-                <div class="flex gap-1">
+                <div class="flex gap-2 text-[1.08rem]">
                 <input type="radio" name="role" id="recrutador" value="recrutador" >
                 <label for="recrutador" class="cursor-pointer">Recrutador</label>
             </div>
@@ -64,8 +65,8 @@
         </div>
         <button id="btn-criar-conta" type="submit" class="block mt-12 w-[60%] py-4 rounded text-neutral-50 text-[1.35rem]">Criar conta</button>
         </form>
-        <picture class="relative bottom-8">
-            <img src="/assets/images/banner-criar-conta.svg" alt="" width="700">
+        <picture class="p-12 rounded-r-[12px]">
+            <img src="/assets/images/banner-criar-conta.svg" alt="" width="550">
         </picture>
         {{#if userSuccess}}
         <span class="flashMsg bg-green-600 text-neutral-50 px-4 py-2 rounded fixed -right-full bottom-8"><i class="ri-checkbox-circle-line mr-1"></i>{{userSuccess}}</span>
@@ -74,5 +75,6 @@
         <span class="flashMsg bg-red-600 text-neutral-50 px-4 py-2 rounded fixed -right-full bottom-8"><i class="ri-error-warning-line mr-1"></i>{{emailExists}}</span>
         {{/if}}
     </main>
+    {{>footer}}
 </body>
 </html>
