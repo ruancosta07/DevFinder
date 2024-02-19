@@ -16,7 +16,6 @@ const session = require("express-session");
 const bcrypt = require("bcrypt");
 require("./models/Usuario");
 const cookieParser = require("cookie-parser");
-const Usuario = mongoose.model("usuarios");
 
 app.use(cookieParser());
 app.use(
@@ -33,6 +32,7 @@ app.use((req, res, next) => {
   res.locals.vagaSuccess = req.flash("vagaSuccess");
   res.locals.emailExists = req.flash("emailExists");
   res.locals.password_incorrect = req.flash("password_incorrect");
+  res.locals.user_not_found = req.flash("user_not_found");
   next();
 });
 app.use(express.static(path.join(__dirname + "../../" + "/public")));
@@ -63,6 +63,10 @@ hbs.registerHelper("limit", function (arr, limit) {
   return arr.slice(0, limit);
 });
 
+hbs.registerHelper('eq', function(a, b) {
+  return a === b;
+});
+
 mongoose
   .connect(
     `mongodb+srv://${DB_USER}:${DB_PASSWORD}@${DB_NAME}.wqjbbwo.mongodb.net/`
@@ -74,6 +78,11 @@ mongoose
     console.log("erro ao conectar");
   });
 app.use("/", main);
+
+app.use(function(req, res, next) {
+  res.status(404).send('Desculpe, não conseguimos encontrar isso!');
+});
+
 app.listen(port, () => {
   console.log(`Server running at ${port} port`);
 });
