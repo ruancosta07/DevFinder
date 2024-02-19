@@ -1,11 +1,27 @@
-<header class="py-6 mb-[160px]">
+<header class="py-6">
     <div class="container-width flex justify-between items-center">
         <a href="/" class="logo text-[2rem] text-gray-13">DevFinder</a>
         {{#if token}}
         <ul class="flex gap-5 text-[1.2rem] text-gray-13 items-center">
             <li><a href="/ver-vagas">Ver vagas</a></li>
             <li><a href="/anunciar-vaga">Anunciar vaga</a></li>
-            <li><a href="/minha-conta" class="bg-blue-10 px-4 py-2 rounded text-gray-1">Minha conta</a></li>
+            <li class="account px-4 py-2 rounded text-gray-13 cursor-pointer relative w-[160px]">
+                Minha conta <i class="ri-arrow-drop-down-line text-[1.8rem] leading-none absolute"></i>
+                <div class="h-[0px] actions-account hidden absolute right-0 w-full top-[100%] text-[0rem]">
+                    <div class="flex gap-3 ">
+                        <i class="ri-folder-user-line"></i>
+                        <a href="">Meu perfil</a>
+                    </div>
+                    <div class="flex gap-3 ">
+                        <i class="ri-lock-2-line"></i>
+                        <a href="">Alterar senha</a>
+                    </div>
+                    <div class="flex gap-3 ">
+                        <i class="ri-login-box-line"></i>
+                        <a href="/logout" id="logout">Sair</a>
+                    </div>
+                </div>
+            </li>
         </ul>
         {{else}}
             <ul class="flex gap-5 text-[1.2rem] text-gray-13 items-center">
