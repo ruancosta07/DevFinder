@@ -18,17 +18,23 @@ inputsTexto.forEach((input) => {
   });
 });
 
-verSenha.addEventListener("click", function () {
+if(verSenha){
+  verSenha.addEventListener("click", function () {
   password.setAttribute("type", "text");
   this.classList.add("hidden");
   esconderSenha.classList.remove("hidden");
 });
+}
 
+if(esconderSenha){
 esconderSenha.addEventListener("click", function () {
   password.setAttribute("type", "password");
   this.classList.add("hidden");
   verSenha.classList.remove("hidden");
 });
+}
+
+
 
 if (document.querySelector(".alertName")) {
   inputName.classList.add("error");
@@ -43,6 +49,7 @@ if (document.querySelector(".alertPassword")) {
   inputPassword.parentElement.querySelector("label").classList.add("errorLabel");
 }
 
+if(inputName){
 inputName.addEventListener("focus", function () {
   if (document.querySelector(".alertName")) {
     document.querySelector(".alertName").classList.add("hidden");
@@ -53,6 +60,9 @@ inputName.addEventListener("focus", function () {
   inputName.classList.remove("error");
   inputName.parentElement.querySelector("label").classList.remove("errorLabel");
 });
+
+}
+
 
 inputEmail.addEventListener("focus", function () {
   if (document.querySelector(".alertEmail")) {
