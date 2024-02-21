@@ -8,14 +8,16 @@
     <link rel="stylesheet" href="./css/tailwind.css">
     <link rel="stylesheet" href="./css/remixicon/fonts/remixicon.css">
     <script src="/scripts/criarConta.js" defer></script>
+    <script src="/scripts/flashMsg.js" defer></script>
     <script src="/scripts/animate.js" defer></script>
+    <script src="/scripts/home.js" defer></script>
     <link rel="shortcut icon" href="/logo.svg" type="image/x-icon">
 </head>
 <body>
     {{>header}}
-    <main id="login" class="container-width grid grid-cols-2 mt-[100px] w-[1200px] h-[650px]">
-        <form action="/login" method="post" class="m-auto w-full">
-                <h1 class="col-span-full mb-16 text-gray-12 text-[2.75rem] text-center w-[60%] font-semibold tracking-[.25px] ">Fazer <span class="text-blue-8">login</span></h1>
+    <main id="login" class="container-width grid lg:grid-cols-2 mt-[100px] lg:w-[1200px] lg:h-[650px]">
+        <form action="/login" method="post" class="max-lg:py-12 m-auto w-full">
+                <h1 class="max-md:leading-[1.115] col-span-full mb-16 text-gray-12 text-[2.75rem] text-center w-[60%] font-semibold tracking-[.25px] ">Fazer <span class="text-blue-8">login</span></h1>
         <div class="mb-9 relative w-[60%]">
             <div class="relative h-[48px]">
                 <input type="email" name="email" id="email" autocomplete="off">
@@ -31,7 +33,7 @@
         </div>
         <button id="btn-criar-conta" type="submit" class="block mt-12 w-[60%] py-4 rounded bg-blue-10 text-neutral-50 text-[1.35rem]">Fazer login</button>
         </form>
-        <picture class="grid items-center">
+        <picture class="grid items-center max-lg:hidden">
             <img src="/assets/images/banner-login.svg" alt="" width="550">
         </picture>
         {{#if erros.email_error}}
@@ -47,5 +49,6 @@
             <span class="flashMsg bg-red-600 text-neutral-50 px-4 py-2 rounded fixed -right-full bottom-8"><i class="ri-error-warning-line mr-1"></i>{{password_incorrect}}</span>
         {{/if}}
     </main>
+    {{>footer}}
 </body>
 </html>
