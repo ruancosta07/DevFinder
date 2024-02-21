@@ -1,35 +1,32 @@
 <header class="py-6">
-    <div class="container-width flex justify-between items-center">
+    <div class="container-width flex justify-between items-center relative w-full">
         <a href="/" class="logo text-[2rem] text-gray-13">DevFinder</a>
         {{#if token}}
-        <ul class="flex gap-5 text-[1.2rem] text-gray-13 items-center">
+        <ul class="z-[2] max-lg:hidden max-lg:absolute right-5 top-full 2xl:flex text-[1.2rem] gap-5 text-gray-13 items-center">
             <li><a href="/ver-vagas">Ver vagas</a></li>
             <li><a href="/anunciar-vaga">Anunciar vaga</a></li>
-            <li class="account px-4 py-2 rounded text-gray-13 cursor-pointer relative w-[160px]">
-                Minha conta <i class="ri-arrow-drop-down-line text-[1.8rem] leading-none absolute"></i>
-                <div class="h-[0px] actions-account hidden absolute right-0 w-full top-[100%] text-[0rem]">
-                    <div class="flex gap-3 ">
-                        <i class="ri-folder-user-line"></i>
-                        <a href="">Meu perfil</a>
-                    </div>
-                    <div class="flex gap-3 ">
-                        <i class="ri-lock-2-line"></i>
-                        <a href="">Alterar senha</a>
-                    </div>
-                    <div class="flex gap-3 ">
-                        <i class="ri-login-box-line"></i>
-                        <a href="/logout" id="logout">Sair</a>
-                    </div>
-                </div>
+            <li class="font-medium text-gray-13 cursor-pointer relative">
+                <a href="" class="">Minha conta</a>
+            </li>
+            <li class="account font-medium bg-red-600  rounded text-gray-1 cursor-pointer relative">
+                <a href="/logout" class="px-4 py-2">Sair da conta</a>
             </li>
         </ul>
+            <input type="checkbox" name="" id="menu-mobile" class="hidden">
+            <label for="menu-mobile" class="lg:hidden">
+                <div class="menu-hamburguer"></div>
+            </label>
         {{else}}
-            <ul class="flex gap-5 text-[1.2rem] text-gray-13 items-center">
+            <ul class=" z-[2] max-lg:hidden max-lg:absolute right-5 top-full 2xl:flex text-[1.2rem] gap-5 text-gray-13 items-center">
             <li><a href="/ver-vagas">Ver vagas</a></li>
             <li><a href="/anunciar-vaga">Anunciar vaga</a></li>
             <li><a href="/login">Login</a></li>
-            <li><a href="/criar-conta" class="bg-blue-10 px-4 py-2 rounded text-gray-1">Criar conta</a></li>
-        </ul>
+            <li><a href="/criar-conta" class="bg-blue-10 px-2 py-1 2xl:px-4 2xl:py-2 rounded text-gray-1">Criar conta</a></li>
+            </ul>
+            <input type="checkbox" name="" id="menu-mobile" class="hidden">
+            <label for="menu-mobile" class="lg:hidden">
+                <div class="menu-hamburguer"></div>
+            </label>
         {{/if}}
     </div>
 </header>
