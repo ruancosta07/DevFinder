@@ -1,8 +1,8 @@
 require("dotenv").config();
-const DB_NAME = process.env.DB_NAME
-const DB_USER = process.env.DB_USER
-const DB_PASSWORD = process.env.DB_PASSWORD
-const SESSION_KEY = process.env.SESSION_KEY
+const DB_NAME = process.env.DB_NAME;
+const DB_USER = process.env.DB_USER;
+const DB_PASSWORD = process.env.DB_PASSWORD;
+const SESSION_KEY = process.env.SESSION_KEY;
 const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
@@ -10,7 +10,7 @@ const path = require("path");
 const hbs = require("hbs");
 const main = require("./routes/main");
 const bodyParser = require("body-parser");
-const port =  3000;
+const port = 3000;
 const flash = require("connect-flash");
 const session = require("express-session");
 const bcrypt = require("bcrypt");
@@ -33,6 +33,7 @@ app.use((req, res, next) => {
   res.locals.emailExists = req.flash("emailExists");
   res.locals.password_incorrect = req.flash("password_incorrect");
   res.locals.user_not_found = req.flash("user_not_found");
+  res.locals.vaga_delete = req.flash("vaga_delete");
   next();
 });
 app.use(express.static(path.join(__dirname + "../../" + "/public")));
@@ -63,8 +64,20 @@ hbs.registerHelper("limit", function (arr, limit) {
   return arr.slice(0, limit);
 });
 
-hbs.registerHelper('eq', function(a, b) {
+hbs.registerHelper("eq", function (a, b) {
   return a === b;
+});
+
+hbs.registerHelper("equals", function (a, b, options) {
+  if (a != undefined && b != undefined) {
+    if (a == b) {
+      console.log("a equals b");
+      return options.fn(this);
+    } else {
+      console.log("a does not equal b");
+      return options.inverse(this);
+    }
+  }
 });
 
 mongoose
@@ -79,8 +92,8 @@ mongoose
   });
 app.use("/", main);
 
-app.use(function(req, res, next) {
-  res.status(404).send('Desculpe, não conseguimos encontrar isso!');
+app.use(function (req, res, next) {
+  res.status(404).render('404');
 });
 
 app.listen(port, () => {
