@@ -9,13 +9,40 @@ const Vaga = mongoose.model("vagas");
 const jwt = require("jsonwebtoken");
 
 main.get("/", (req, res) => {
+  const token = req.cookies.token
+if(token){
+  const decodedToken = jwt.verify(token, `${JWT_KEY}`)
   Vaga.find()
     .limit(6)
     .sort({ date: "desc" })
     .then((vagas) => {
-      res.render("index", { vagas, token: req.cookies.token });
+      Usuario.findOne({email: decodedToken.email}).then((user)=>{
+        const userEmail = user.email
+        res.render("index", {userEmail, vagas, token});
+      })
     });
+  }
+  else{
+    Vaga.find()
+    .limit(6)
+    .sort({ date: "desc" })
+    .then((vagas) => {
+        res.render("index", { vagas, token });
+    });
+  }
 });
+
+
+main.get('/excluir-vaga/:id', checkRole(), (req, res)=>{
+  Vaga.findOneAndDelete({_id: req.params.id}).then(()=>{
+  req.flash('vaga_delete', 'Vaga apagada com sucesso!')
+  res.redirect('/')
+  })
+})
+
+// main.get('/excluir-vaga/', checkRole(), (req, res)=>{
+//     res.redirect('/')
+// })
 
 main.get("/criar-conta", (req, res) => {
   res.render("criar-conta", { token: req.cookies.token });
@@ -90,7 +117,7 @@ main.get("/users", (req, res) => {
   });
 });
 
-function checkRole(role) {
+function checkRole() {
   return function (req, res, next) {
     // Verifique o token do usuário
     const token = req.cookies.token;
@@ -100,7 +127,7 @@ function checkRole(role) {
 
     try {
       const decoded = jwt.verify(token, `${JWT_KEY}`);
-      if (decoded.role !== role) {
+      if (decoded.role !== 'recrutador') {
         return res
           .status(403)
           .send(
@@ -114,8 +141,12 @@ function checkRole(role) {
   };
 }
 
-main.get("/anunciar-vaga", checkRole("recrutador"), (req, res) => {
-  res.render("anunciar-vaga", { token: req.cookies.token });
+main.get("/anunciar-vaga", checkRole(), (req, res) => {
+  const token = req.cookies.token
+  const decodedToken = jwt.verify(token, `${JWT_KEY}`)
+  Usuario.findOne({email: decodedToken.email}).then((user)=>{
+  res.render("anunciar-vaga", { token, user });
+  })
 });
 
 main.post("/anunciar-vaga", (req, res) => {
@@ -126,6 +157,7 @@ main.post("/anunciar-vaga", (req, res) => {
     salary: req.body.salary,
     level: req.body.level,
     description: req.body.description,
+    createdBy: req.body.createdBy
   };
 
   Vaga.create(novaVaga).then(() => {
@@ -173,13 +205,13 @@ main.post("/login", (req, res) => {
               const tokenUser = jwt.sign(
                 { email: user.email, password: user.password, role: user.role },
                 `${JWT_KEY}`,
-                { expiresIn: "5m" }
+                { expiresIn: "20m" }
               );
               req.session.token = tokenUser;
               res.cookie("token", tokenUser, {
                 httpOnly: true,
                 secure: false,
-                maxAge: 600000,
+                maxAge: 120 * 10 * 1000,
               });
               res.redirect("/");
             }
@@ -208,25 +240,24 @@ main.get("/logout", function (req, res) {
 main.post("/ver-vagas", async (req, res) => {
   let { searchVaga, min, max, level, front, back, full } = req.body;
 
-  // Cria um objeto de consulta vazio
+
   let query = {};
 
-  // Se searchVaga existe, adiciona ao objeto de consulta
+
   if (searchVaga) {
     query.title = { $regex: new RegExp(searchVaga, "i") };
   }
 
-  // Se min e max existem, adiciona ao objeto de consulta
+
   if (min && max) {
     query.salary = { $gte: Number(min), $lte: Number(max) };
   }
 
-  // Se level existe, adiciona ao objeto de consulta
+
   if (level) {
     query.level = level;
   }
 
-  // Se front, back ou full existem, adiciona ao objeto de consulta
   let titleRegex = [];
   if (front) titleRegex.push(new RegExp("Front", "i"));
   if (back) titleRegex.push(new RegExp("Back", "i"));
@@ -237,13 +268,6 @@ main.post("/ver-vagas", async (req, res) => {
 
   const quantidade = await Vaga.countDocuments(query);
 
-  // Vaga.find(query)
-  //   .sort({ title: 'asc' })
-  //   .then((vagasEncontradas) => {
-  //     Vaga.countDocuments().then((quantidade) => {
-  //       res.render('ver-vagas', { vagasEncontradas, quantidade, searchVaga, min, max, front, back, full, level });
-  //     });
-  //   });
   res.render("ver-vagas", {
     vagasEncontradas,
     quantidade,
@@ -256,15 +280,6 @@ main.post("/ver-vagas", async (req, res) => {
     level,
   });
 });
-
-// main.post('/ver-vagas/filter', (req, res)=>{
-//   const {searchVaga, min, max} = req.body
-//   Vaga.find({title: {$regex: searchVaga, $options: 'i'}, salary: {$gte: min, $lte: max}}).sort({title: 'asc'}).then((vagasEncontradas)=>{
-//     Vaga.countDocuments().then((quantidade)=>{
-//       res.render('ver-vagas', {vagasEncontradas, quantidade, searchVaga: searchVaga})
-//     })
-//   })
-// })
 
 main.get("/vagas/:id", (req, res) => {
   res.render("/vaga");
