@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página não encontrada</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/tailwind.css">
+</head>
+<body>
+    {{>header}}
+    <main class="mt-[160px]">
+        <div class="container-width grid grid-cols-2">
+            <article>
+            <h1 class="lg:text-[3.5rem] leading-[1.115] mb-3">Ops, parece que a página que você acessou não existe.</h1>
+            <p class="text-[1.15rem]">Pode ter havido um erro na digitação do endereço ou a página pode ter sido removida ou movida para outro local. Não se preocupe, você pode voltar para a nossa página inicial e buscar ou publicar vagas.
+            <a href="/" class="block bg-blue-10 text-gray-1 px-4 py-2 rounded w-fit text-[1.25rem] mt-5">Voltar para o início</a>
+            </p>
+            </article>
+        <img src="/assets/images/404.svg" alt="" class="relative bottom-32">
+        </div>
+    </main>
+    {{>footer}}
+</body>
+</html>
