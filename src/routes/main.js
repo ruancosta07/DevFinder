@@ -119,7 +119,6 @@ main.get("/users", (req, res) => {
 
 function checkRole() {
   return function (req, res, next) {
-    // Verifique o token do usuário
     const token = req.cookies.token;
     if (!token) {
       return res.redirect("/login");
@@ -280,6 +279,7 @@ main.post("/ver-vagas", async (req, res) => {
     level,
   });
 });
+
 
 main.get("/vagas/:id", (req, res) => {
   res.render("/vaga");
