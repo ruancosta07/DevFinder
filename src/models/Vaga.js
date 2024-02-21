@@ -28,6 +28,9 @@ const Vaga = new Schema({
     date:{
         type: Date,
         default: Date.now()
+    },
+    createdBy: {
+        type: String
     }
 })
 
