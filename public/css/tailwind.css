@@ -560,10 +560,6 @@ video {
   right: -100%;
 }
 
-.bottom-12 {
-  bottom: 3rem;
-}
-
 .bottom-16 {
   bottom: 4rem;
 }
@@ -1968,10 +1964,6 @@ footer :where(h1, a) {
     display: none;
   }
 
-  .max-lg\:max-w-\[5ch\] {
-    max-width: 5ch;
-  }
-
   .max-lg\:gap-3 {
     gap: 0.75rem;
   }
@@ -1996,20 +1988,12 @@ footer :where(h1, a) {
 }
 
 @media not all and (min-width: 768px) {
-  .max-md\:mt-8 {
-    margin-top: 2rem;
-  }
-
   .max-md\:hidden {
     display: none;
   }
 
   .max-md\:max-w-\[5ch\] {
     max-width: 5ch;
-  }
-
-  .max-md\:gap-8 {
-    gap: 2rem;
   }
 
   .max-md\:leading-\[1\.115\] {
@@ -2024,11 +2008,6 @@ footer :where(h1, a) {
 
   .md\:gap-8 {
     gap: 2rem;
-  }
-
-  .md\:py-12 {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
   }
 
   .md\:py-6 {
@@ -2094,16 +2073,16 @@ footer :where(h1, a) {
     justify-content: center;
   }
 
+  .lg\:gap-0 {
+    gap: 0px;
+  }
+
   .lg\:gap-2 {
     gap: 0.5rem;
   }
 
   .lg\:gap-5 {
     gap: 1.25rem;
-  }
-
-  .lg\:gap-0 {
-    gap: 0px;
   }
 
   .lg\:px-4 {
