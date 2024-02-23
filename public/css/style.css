@@ -107,15 +107,15 @@ textarea {
 }
 
 
-main#criar-conta picture {}
 
-form:not(.filtros, #anunciarVaga) label:not([for="recrutador"], [for="candidato"]) {
+form:not(.filtros, #anunciarVaga) label:not([for="recrutador"], [for="candidato"], [for=""]) {
   position: absolute;
   font-size: .95rem;
   @apply text-gray-9;
   left: 12px;
   top: 50%;
   transform: translateY(-50%);
+  padding: 4px;
   transition: .25s ease;
 }
 
@@ -154,9 +154,7 @@ input:not(input[type="radio"], input[type="checkbox"]):focus~label:not([for="rec
 }
 
 .gradient {
-  background: linear-gradient(45deg, #407BFF, #2F48AD);
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  background: linear-gradient(-45deg, #0096c7, var(--blue-14))
 }
 
 .error {
@@ -597,7 +595,10 @@ footer :where(h1, a) {
 }
 
 .filtros{
-  top: 27.7% !important;
+  position: fixed !important; 
+  top: 15% !important;
+  height: fit-content !important;
+  padding-bottom: 24px;
 }
 
 .filtrosAnimate {
@@ -614,4 +615,23 @@ footer :where(h1, a) {
   }
 }
 
+}
+
+@media ((min-width:1024px) and (max-width: 1440px)){
+  .container-width{
+    max-width: 1200px;
+  }
+}
+
+.editar-vaga{
+  border-radius: 4px 4px 0 0 ;
+}
+.excluir-vaga{
+  border-radius: 0 0 4px 4px ;
+}
+
+@media ((min-width: 768px) and (max-width:1024px))  {
+  .container-width{
+    padding: 0 40px;
+  }
 }
