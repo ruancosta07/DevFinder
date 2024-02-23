@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minha Conta</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/tailwind.css">
+    <link rel="stylesheet" href="/css/animate.css">
+    <link rel="stylesheet" href="/css/minhaConta.css">
+    <link rel="stylesheet" href="/css/remixicon/fonts/remixicon.css">
+    <script src="/scripts/home.js" defer></script>
+    <script src="/scripts/flashMsg.js" defer></script>
+    <script src="/scripts/animate.js" defer></script>
+    <script src="/scripts/alterarSenha.js" defer></script>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon">
+</head>
+<body>
+    {{>header}}
+    <main class="mt-[60px]">
+        <div class="container-width grid lg:grid-cols-2">
+            <form action="/minha-conta" method="post" class="mx-auto py-16">
+            <h1 class="text-[2.5rem] text-center mb-8 font-semibold"><span class="text-blue-8">Minha</span> conta</h1>
+                <div class="mt-3">
+                    <label for="name" class="relative">Nome completo</label>
+                    <input type="text" name="name" id="name" value="{{name}}">
+                </div>
+                <div class="mt-3">
+                    <label for="name" class="relative">Email</label>
+                    <input type="text" name="email" id="name" value="{{email}}">
+                </div>
+                <div class="mt-3">
+                    <label for="name" class="relative">Senha</label>
+                    <div class="relative">
+                        {{#if match}}
+                        <input type="text" name="password" id="name" class="text-[.9rem]" autofocus>
+                        {{else}}
+                        <input type="text" name="" id="name" value="✱✱✱✱✱✱✱✱✱✱✱✱" class="text-[.9rem]" disabled>
+                        {{/if}}
+                        <i id="alterar-senha-btn" class="ri-edit-box-line text-[1.3rem] text-gray-8 absolute right-3 top-2/4 -translate-y-2/4 cursor-pointer"></i>
+                    </div>
+                </div>
+                <button type="submit" class="text-gray-1 bg-blue-10 py-3 rounded w-full text-[1.1rem] mt-8">Salvar alterações</button>
+            </form>
+            <div class="gradient banner max-lg:hidden">
+                <img src="/assets/images/account.svg" alt="">
+            </div>
+        </div>
+    </main>
+
+    {{#if change_password_error}}
+    <span class="flashMsg bg-red-600 text-neutral-50 px-4 py-2 rounded fixed -right-full bottom-8"><i class="ri-error-warning-line mr-1"></i>{{change_password_error}}</span>
+    <form action="/minha-conta/alterar-senha" method="post" id="alterar-senha-form" class="z-[4]">
+    <div class="grid">
+        <span class="text-[1.25rem] justify-self-center">Para alterar sua senha digite sua <span class="font-semibold text-gray-16">senha atual</span></span>
+        <div class="relative">
+            <input type="password" name="confirmarSenha" id="" class="w-[50%] mt-5 text-[1.2rem]">
+            <div class="absolute right-3 top-2/4 -translate-y-[20%] text-[1.35rem] text-gray-10 cursor-pointer">
+            <i id="ver-senha" class="ri-eye-line"></i>
+            <i id="esconder-senha" class="ri-eye-off-line hidden"></i>
+            </div>
+        </div>
+        <button type="submit" class="bg-blue-10 mt-5 rounded text-gray-1 py-4 text-[1.25rem]">Confirmar senha</button>
+    </div>
+    </form>
+    {{else}}
+    <form action="/minha-conta/alterar-senha" method="post" id="alterar-senha-form" class="z-[4] hidden">
+    <div class="grid">
+        <span class="text-[1.25rem] justify-self-center">Para alterar sua senha digite sua <span class="font-semibold text-gray-16">senha atual</span></span>
+        <div class="relative">
+            <input type="password" name="confirmarSenha" id="" class="w-[50%] mt-5 text-[1.2rem]">
+            <div class="absolute right-3 top-2/4 -translate-y-[20%] text-[1.35rem] text-gray-10 cursor-pointer">
+            <i id="ver-senha" class="ri-eye-line"></i>
+            <i id="esconder-senha" class="ri-eye-off-line hidden"></i>
+            </div>
+        </div>
+        <button type="submit" class="bg-blue-10 mt-5 rounded text-gray-1 py-4 text-[1.25rem]">Confirmar senha</button>
+    </div>
+    </form>
+    {{/if}}
+    <form action="/minha-conta/alterar-senha" method="post" id="alterar-senha-form" class="z-[4] hidden">
+    <div class="grid">
+        <span class="text-[1.25rem] justify-self-center">Para alterar sua senha digite sua <span class="font-semibold text-gray-16">senha atual</span></span>
+        <div class="relative">
+            <input type="password" name="confirmarSenha" id="" class="w-[50%] mt-5 text-[1.2rem]">
+            <div class="absolute right-3 top-2/4 -translate-y-[20%] text-[1.35rem] text-gray-10 cursor-pointer">
+            <i id="ver-senha" class="ri-eye-line"></i>
+            <i id="esconder-senha" class="ri-eye-off-line hidden"></i>
+            </div>
+        </div>
+        <button type="submit" class="bg-blue-10 mt-5 rounded text-gray-1 py-4 text-[1.25rem]">Confirmar senha</button>
+    </div>
+    </form>
+
+    <div class="senha-ativa"></div>
+    {{>footer}}
+    {{match}}
+</body>
+</html>
