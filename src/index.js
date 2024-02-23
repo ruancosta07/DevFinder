@@ -34,20 +34,26 @@ app.use((req, res, next) => {
   res.locals.password_incorrect = req.flash("password_incorrect");
   res.locals.user_not_found = req.flash("user_not_found");
   res.locals.vaga_delete = req.flash("vaga_delete");
+  res.locals.loginSuccess = req.flash("loginSuccess");
+  res.locals.vagaUpdated = req.flash("vagaUpdated");
+  res.locals.change_password_error = req.flash("change_password_error");
   next();
 });
+
 app.use(express.static(path.join(__dirname + "../../" + "/public")));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "templates/views"));
 hbs.registerPartials(path.join(__dirname, "templates/partials"));
+
 hbs.registerHelper("split", function (context, options) {
   if (!context) {
     return [];
   }
-  return context.split(options);
+  return context.split(options).map(item => item.trim());
 });
+
 
 hbs.registerHelper("truncate", function (str, len) {
   if (str.length > len) {
@@ -71,10 +77,8 @@ hbs.registerHelper("eq", function (a, b) {
 hbs.registerHelper("equals", function (a, b, options) {
   if (a != undefined && b != undefined) {
     if (a == b) {
-      console.log("a equals b");
       return options.fn(this);
     } else {
-      console.log("a does not equal b");
       return options.inverse(this);
     }
   }
