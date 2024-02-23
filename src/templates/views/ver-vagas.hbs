@@ -6,30 +6,38 @@
     <title>Ver vagas</title>
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/tailwind.css">
+    <link rel="stylesheet" href="/css/animate.css">
     <link rel="stylesheet" href="/css/remixicon/fonts/remixicon.css">
     <link rel="shortcut icon" href="/logo.svg" type="image/x-icon">
     <script src="/scripts/verVaga.js" defer></script>
     <script src="/scripts/home.js" defer></script>
+    <script src="/scripts/animate.js" defer></script>
 </head>
 <body>
     {{>header}}
+    {{#if vagasEncontradas}}
+   {{else}}
     <main class="mt-[120px] mb-[80px]">
-      <div class="container-width">
-        <h1 class="text-[2rem] lg:text-[4rem] font-semibold leading-[1.115] mb-5 max-w-[25ch]">Conquiste sua primeira vaga e inicie sua jornada na programação.</h1>
-        <p class="lg:text-[1.25rem]">Olá dev! Aqui é o lugar certo pra achar um trampo que é a sua cara. Temos vagas pra todo tipo de programador, seja você do front, do back ou full-stack.
+      <div class="container-width grid lg:grid-cols-2 gap-12">
+        <article>
+        <h1 class="text-[2rem] lg:text-[2.5rem] 2xl:text-[3.2rem]  font-semibold leading-[1.115] mb-5 max-w-[25ch]">Conquiste sua primeira vaga e inicie sua jornada na programação.</h1>
+        <p class="text-[1.05rem] 2xl:text-[1.15rem]">Olá dev! Aqui é o lugar certo pra achar um trampo que é a sua cara. Temos vagas pra todo tipo de programador, seja você do front, do back ou full-stack.
           Dá uma olhada nas vagas, usa os filtros pra achar o que combina com você e se joga!</p>
+        </article>
+        <img src="/assets/images/ver-vagas.svg" alt="" class="max-lg:hidden relative bottom-16">
       </div>
     </main>
-        <section id="ver-vagas" class="container-width grid lg:grid-cols-3 gap-5 ">
+    {{/if}}
+        <section id="ver-vagas" class="container-width grid lg:grid-cols-3 gap-5 mt-[60px] ">
             <form action="/ver-vagas" method="post" class="col-span-full grid mb-3">
                 <input type="text" name="searchVaga" id="" class="text-[1.2rem] placeholder:text-gray-8" placeholder="ex: desenvolvedor front end" spellcheck="false" autocomplete="off" value="{{searchVaga}}">
                 <button type="submit" class="max-lg:py-3 bg-blue-10 text-gray-1 text-[1.2rem] rounded px-6"><i class="ri-search-line mr-2"></i>Buscar vaga</button>
             </form>
             <button class="ativa-filtros lg:hidden bg-blue-10 text-gray-1 w-fit text-[2rem] px-2 fixed bottom-8 right-0 z-[2]"><i class="ri-filter-fill"></i></button>
-            <form action="/ver-vagas" method="post" class=" fixed max-lg:z-[3] z-[2] max-lg:right-full filtros col-span-1 row-start-2 row-span-12 mr-5 h-[600px] px-14 lg:sticky top-8">
+            <form action="/ver-vagas" method="post" class=" max-lg:fixed max-lg:z-[3] z-[2] max-lg:right-full filtros col-span-1 row-start-2 row-span-12 mr-5 h-[600px] px-14 top-8">
             <i class="fecha-filtros lg:hidden ri-close-fill text-[1.8rem] absolute right-5 top-2"></i>
               <div class=" py-6">
-                <h1 class="text-[1.75rem] text-gray-1">Busca avançada</h1>
+                <h1 class="text-[1.4rem] lg:text-[1.75rem] text-gray-1">Busca avançada</h1>
               </div>
               <div class="categoria grid text-[1.15rem] gap-1 py-3">
                 <span class="text-[1.45rem] mb-3">Categoria</span>
@@ -135,24 +143,23 @@
           <h1 class="searchVaga text-[2.5rem] font-medium col-start-2 leading-[1.115] col-span-full"></h1>
             {{#if vagasEncontradas}}
         <div class="resultados col-start-2 col-span-full">
-          {{!-- <h1 class="searchVaga text-[2.5rem] font-medium clear-start leading-[1.115]">Mostrando resultados para "{{searchVaga}}"</h1> --}}
         <span class="font-medium">{{quantidade}} resultados</span>
         </div>
         {{#each vagasEncontradas}}
-            <div class="vagaCard relative grid cursor-pointer" data-id="{{this.id}}">
+            <div class="vagaCard relative grid cursor-pointer" data-id="{{this.id}}" data-animate="vaga-render">
             <div class="content">
             <h1 class="text-[1.45rem] font-medium">{{this.title}}</h1>
             <h2 class="mb-3">{{this.enterprise}}</h2>
             <h3 class="">Requisitos e atribuições:</h3>
-            <ul class="mb-auto">
+            <ul class="mb-5">
             {{#each (limit (split this.requirements '§') 4)}}
-              <li class="list-disc ml-5">{{truncate this 40}}</li>
+              <li class="list-disc ml-5 max-2xl:text-[.9rem]">{{truncate this 40}}</li>
             {{/each}}
             </ul>
             </div>
           <div class="tags flex absolute right-6 bottom-6 gap-2 font-medium">
-            <span class="text-gray-12 bg-gray-6 rounded py-[2px] px-3 text-[.8rem] lg:text-[.95rem]">R$ {{this.salary}}</span>
-            <span class="text-gray-12 bg-gray-6 rounded py-[2px] px-3 text-[.8rem] lg:text-[.95rem]">{{this.level}}</span>
+            <span class="text-gray-12 bg-gray-6 rounded py-[2px] px-3 text-[.75rem] 2xl:text-[.95rem]">R$ {{this.salary}}</span>
+            <span class="text-gray-12 bg-gray-6 rounded py-[2px] px-3 text-[.75rem] 2xl:text-[.95rem]">{{this.level}}</span>
           </div>
           <a href="/vagas/{{this.id}}" class="bg-blue-10 px-4 py-1 h-fit w-fit text-gray-1 rounded mt-auto">Candidatar-se</a>
         </div>
@@ -161,12 +168,12 @@
           {{#each vagasEncontradas}}
           <div class="vagaExpanded rounded-md z-[3] hidden bg-gray-1 p-8" data-id="{{this.id}}">
             <div class="content">
-            <h1 class="text-[2.85rem] font-medium">{{this.title}}</h1>
+            <h1 class="text-[2.85rem] font-medium max-lg:leading-[1.115]">{{this.title}}</h1>
             <h2 class="mb-3 text-[1.2rem]">{{this.enterprise}}</h2>
             <h4 class="text-[2rem] mt-3 mb-1">Descrição da vaga</h4>
             <p class="text-gray-12 text-[1.15rem] mb-5">{{this.description}}</p>
             <h3 class="text-[1.35rem]">Requisitos e atribuições:</h3>
-            <ul class="mb-5">
+            <ul class="mb-5 max-2xl:text-[.9rem]">
             {{#each (split this.requirements '§')}}
               <li class="list-disc ml-5 text-[1.15rem]">{{this}}</li>
             {{/each}}
@@ -182,22 +189,22 @@
         </section>
           {{/if}}
           {{#each vagas}}
-        <div class="vagaCard relative grid cursor-pointer" data-id="{{this.id}}">
+        <div class="vagaCard relative grid cursor-pointer" data-id="{{this.id}}" data-animate="vaga-render">
             <div class="content">
-            <h1 class="text-[1.45rem] font-medium">{{this.title}}</h1>
+            <h1 class="text-[1.45rem] font-medium max-2xl:leading-[1.115]">{{this.title}}</h1>
             <h2 class="mb-3">{{this.enterprise}}</h2>
             <h3 class="">Requisitos e atribuições:</h3>
-            <ul class="mb-auto">
+            <ul class="mb-[12px]">
             {{#each (limit (split this.requirements '§') 4)}}
-              <li class="list-disc ml-5">{{truncate this 40}}</li>
+              <li class="list-disc ml-5 lg:text-[.9rem] 2xl:text-[1rem]">{{truncate this 40}}</li>
             {{/each}}
             </ul>
             </div>
           <div class="tags flex absolute right-6 bottom-6 gap-[2px] lg:gap-2 font-medium">
-            <span class="text-gray-12 bg-gray-6 rounded py-[2px] px-3 text-[.8rem] lg:text-[.95rem]">R$ {{this.salary}}</span>
-            <span class="text-gray-12 bg-gray-6 rounded py-[2px] px-3 text-[.8rem] lg:text-[.95rem]">{{this.level}}</span>
+            <span class="text-gray-12 bg-gray-6 rounded py-[2px] px-3 text-[.75rem] 2xl:text-[.95rem]">R$ {{this.salary}}</span>
+            <span class="text-gray-12 bg-gray-6 rounded py-[2px] px-3 text-[.75rem] 2xl:text-[.95rem]">{{this.level}}</span>
           </div>
-          <a href="/vagas/{{this.id}}" class="bg-blue-10 px-4 py-1 h-fit w-fit text-gray-1 rounded mt-5">Candidatar-se</a>
+          <a href="/vagas/{{this.id}}" class="bg-blue-10 px-4 py-1 h-fit w-fit text-gray-1 rounded mt-auto 2xl:mt-5">Candidatar-se</a>
         </div>
         {{/each}}
         </section>
@@ -227,5 +234,6 @@
         </section>
         {{>footer}}
         <div class="vaga-ativa"></div>
+
 </body>
 </html>

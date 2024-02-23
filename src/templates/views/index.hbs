@@ -18,23 +18,23 @@
 </head>
 <body class="overflow-x-hidden">
     {{>header}}
-    <main class="mt-[80px] mb-[260px] 2xl:mt-[180px] 2xl:mb-[200px]">
-        <div class="container-width grid 2xl:grid-cols-2">
+    <main class="mt-[80px] mb-[260px]  2xl:mt-[180px] 2xl:mb-[200px]">
+        <div class="container-width grid lg:grid-cols-2">
             <article>
-                <h1 class="text-[2.5rem] 2xl:text-[4rem] leading-[1.115] font-medium mb-6" data-animate="left">Encontre as melhores vagas na área da programação.</h1>
+                <h1 class="text-[2.5rem] lg:text-[3rem] 2xl:text-[4rem] leading-[1.115] font-medium mb-6" data-animate="left">Encontre as melhores vagas na área da programação.</h1>
                 <p class="text-[1.15rem]" data-animate="left">Somos a maior plataforma de busca de empregos do Brasil, oferecemos vagas nacionais e internacionais para o mercado da programação. Comece sua busca agora mesmo!</p>
                 <a href="" class="bg-blue-10 text-gray-1 text-[1.25rem] px-4 py-2 rounded mt-6" data-animate="left">Encontrar suas vagas</a>
             </article>
             <picture data-animate="right" class="max-md:hidden">
-                <img src="/assets/images/banner-home.svg" alt="" width="700" height="500"  class="relative bottom-12" loading="lazy">
+                <img src="/assets/images/banner-home.svg" alt="" width="700" height="500"  class="relative lg:bottom-12" loading="lazy">
             </picture>
         </div>
     </main>
 
-    <section id="grid-vagas" class="container-width grid 2xl:grid-cols-3 gap-5 mb-[120px]">
+    <section id="grid-vagas" class="container-width grid lg:grid-cols-2 2xl:grid-cols-3 gap-5 mb-[120px]">
         <div class="col-span-full flex justify-between items-center mb-3">
-        <h1 class="text-[2rem] 2xl:text-[3rem] max-lg:max-w-[5ch] leading-[1.215] font-medium">Vagas recentes</h1>
-        <a href="/ver-vagas" class="tex-[1.1rem] 2xl:text-[1.2rem]">Ver mais <i class="ri-arrow-right-line"></i></a>
+        <h1 class="text-[2rem] 2xl:text-[3rem] max-md:max-w-[5ch] leading-[1.215] font-medium">Vagas recentes</h1>
+        <a href="/ver-vagas" class="text-[1.1rem] 2xl:text-[1.2rem]">Ver mais <i class="ri-arrow-right-line"></i></a>
         </div>
         {{#each vagas}}
         <div class="vagaCard relative grid cursor-pointer break-all" data-id="{{this.id}}" data-animate="vaga">
@@ -53,11 +53,12 @@
             <span class="text-gray-12 bg-gray-6 rounded py-[2px] px-3 text-[.8rem] 2xl:text-[.95rem]">{{this.level}}</span>
           </div>
           {{#equals ../userEmail this.createdBy}}
-          <a href="/excluir-vaga/{{this.id}}">
-            <i class="excluir-vaga ri-delete-bin-2-line text-[1.5rem] absolute right-6 top-6 hover:text-red-600"></i>
-          </a>
+          <div class="acoesVaga absolute text-gray-13 hidden w-[168px] bg-gray-1 rounded">
+            <a href="/editar-vaga/{{this.id}}" class="editar-vaga flex text-[1.1rem] gap-2 py-3 px-4 hover:bg-blue-10 hover:text-gray-1"><i class="ri-edit-box-line"></i>Editar vaga</a>
+            <a href="/excluir-vaga/{{this.id}}" class="excluir-vaga flex text-[1.1rem] hover:bg-red-600 hover:text-gray-1 gap-2 py-3 px-4"><i class=" ri-delete-bin-2-line "></i>Excluir vaga</a>
+          </div>
           {{/equals}}
-          <a href="/vagas/{{this.id}}" class="bg-blue-10 px-4 py-1 h-fit w-fit text-gray-1 rounded mt-5 2xl:mt-auto">Candidatar-se</a>
+          <a href="/vagas/{{this.id}}" class="bg-blue-10 px-4 py-1 h-fit w-fit text-gray-1 rounded mt-5 lg:mt-auto">Candidatar-se</a>
         </div>
         {{/each}}
     </section>
@@ -88,23 +89,23 @@
         </section>
 
     <section id="solucoes" class="container-width">
-        <h1 class="text-[2rem] 2xl:text-[3rem] leading-[1.215] col-span-full">Soluções para sua empresa</h1>
+        <h1 class="text-[2rem] lg:text-[3rem] leading-[1.215] col-span-full">Soluções para sua empresa</h1>
         <img src="assets/images/solucoes.webp" width="1500" height="1000" alt="" loading="lazy" data-animate="solucoes-left">
-        <div class="max-lg:mt-5 solucoes-text grid 2xl:grid-cols-2 gap-5" data-animate="solucoes-right">
+        <div class="max-lg:mt-5 solucoes-text grid lg:grid-cols-2 gap-5" data-animate="solucoes-right">
             <div class="">
-                <h1 class="text-[1.8rem] mb-2">Recrutamento Especializado</h1>
+                <h1 class="text-[1.8rem] mb-2 leading-[1.115]">Recrutamento Especializado</h1>
                 <p>Fornecemos recrutadores especializados em setores específicos para garantir a seleção de candidatos com as habilidades e experiência necessárias..</p>
             </div>
             <div class="">
-                <h1 class="text-[1.8rem] mb-2">Avaliação de Candidatos</h1>
+                <h1 class="text-[1.8rem] mb-2 leading-[1.115]">Avaliação de Candidatos</h1>
                 <p>Realizamos testes e avaliações para medir as habilidades técnicas e comportamentais dos candidatos.</p>
             </div>
             <div class="">
-                <h1 class="text-[1.8rem] mb-2">Programas de Integração</h1>
+                <h1 class="text-[1.8rem] mb-2 leading-[1.115]">Programas de Integração</h1>
                 <p>Desenvolvemos programas abrangentes de integração para garantir uma transição suave dos novos funcionários para a cultura e o ambiente de trabalho da empresa.</p>
             </div>
             <div class="">
-                <h1 class="text-[1.8rem] mb-2">E-mail Marketing</h1>
+                <h1 class="text-[1.8rem] mb-2 leading-[1.115]">E-mail Marketing</h1>
                 <p>Desenvolva campanhas de e-mail marketing personalizadas, compartilhando o conteúdo mais recente, atualizações do setor e ofertas especiais para os clientes que participarem ativamente do programa.</p>
             </div>
         </div>

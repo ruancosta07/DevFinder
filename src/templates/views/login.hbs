@@ -6,6 +6,7 @@
     <title>Fazer login</title>
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="./css/tailwind.css">
+    <link rel="stylesheet" href="./css/animate.css">
     <link rel="stylesheet" href="./css/remixicon/fonts/remixicon.css">
     <script src="/scripts/criarConta.js" defer></script>
     <script src="/scripts/flashMsg.js" defer></script>
@@ -47,6 +48,9 @@
         {{/if}}
         {{#if password_incorrect}}
             <span class="flashMsg bg-red-600 text-neutral-50 px-4 py-2 rounded fixed -right-full bottom-8"><i class="ri-error-warning-line mr-1"></i>{{password_incorrect}}</span>
+        {{/if}}
+        {{#if loginSuccess}}
+        <span class="flashMsg loginSuccess bg-green-600 text-neutral-50 px-4 py-2 rounded fixed -right-full bottom-8"><i class="ri-checkbox-circle-line mr-1"></i>{{loginSuccess}}</span>
         {{/if}}
     </main>
     {{>footer}}

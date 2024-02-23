@@ -6,6 +6,7 @@
     <title>Criar conta</title>
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/tailwind.css">
+    <link rel="stylesheet" href="/css/animate.css">
     <link rel="stylesheet" href="/css/remixicon/fonts/remixicon.css">
     <script src="/scripts/criarConta.js" defer></script>
     <script src="/scripts/flashMsg.js" defer></script>
@@ -49,21 +50,21 @@
                 <span class="alertPassword text-red-600 absolute font-medium text-[.85rem] top-[110%]"><i class="ri-error-warning-line mr-1"></i>{{erros.password_error}}</span>
             {{/if}}
         </div>
-        <div class=" role mt-3 text-gray-12 text-[1.15rem] relative w-[80%] lg:w-[40%]">
+        <div class=" role mt-3 text-gray-12 text-[1.15rem] relative w-[80%] lg:gap-5 lg:w-[50%]">
             <span class="col-span-full text-[1.15rem] pl-3 tipoConta relative">Tipo de conta</span>
                 <div class=" grid max-lg:gap-3 lg:grid-cols-2 mt-3">
             <div class="flex gap-2 text-[1.08rem]">
                 <input type="radio" name="role" id="candidato" value="candidato">
                 <label for="candidato" class="cursor-pointer">Candidato</label>
             </div>
-                <div class="flex gap-2 text-[1.08rem]">
+            <div class="flex gap-2 text-[1.08rem]">
                 <input type="radio" name="role" id="recrutador" value="recrutador" >
                 <label for="recrutador" class="cursor-pointer">Recrutador</label>
             </div>
                 </div>
                 {{#if erros.role_error}}
-                <span class="alertPassword text-red-600 absolute font-medium text-[.85rem] top-[110%]"><i class="ri-error-warning-line mr-1"></i>{{erros.role_error}}</span>
-            {{/if}}
+                    <span class="alertPassword text-red-600 absolute font-medium text-[.85rem] top-[110%]"><i       class="ri-error-warning-line mr-1"></i>{{erros.role_error}}</span>
+                {{/if}}
         </div>
         <button id="btn-criar-conta" type="submit" class="block mt-12 bg-blue-10 w-[60%] py-4 rounded text-neutral-50 text-[1.35rem]">Criar conta</button>
         </form>
@@ -71,12 +72,19 @@
             <img src="/assets/images/banner-criar-conta.svg" alt="" width="550">
         </picture>
         {{#if userSuccess}}
-        <span class="flashMsg bg-green-600 text-neutral-50 px-4 py-2 rounded fixed -right-full bottom-8"><i class="ri-checkbox-circle-line mr-1"></i>{{userSuccess}}</span>
+        <span class="flashMsg userSuccess bg-green-600 text-neutral-50 px-4 py-2 rounded fixed -right-full bottom-8"><i class="ri-checkbox-circle-line mr-1"></i>{{userSuccess}}</span>
         {{/if}}
         {{#if emailExists}}
         <span class="flashMsg bg-red-600 text-neutral-50 px-4 py-2 rounded fixed -right-full bottom-8"><i class="ri-error-warning-line mr-1"></i>{{emailExists}}</span>
         {{/if}}
     </main>
     {{>footer}}
+    <script>
+        if(document.querySelector('.userSuccess')){
+            setTimeout(()=>{
+                location.pathname = '/login'
+            }, 3000)
+        }
+    </script>
 </body>
 </html>
