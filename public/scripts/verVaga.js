@@ -71,6 +71,6 @@ vagasCards.forEach((vaga) => {
 if (document.querySelector("h1.searchVaga")) {
   if (vagasCards.length < 1) {
     document.querySelector(".searchVaga").innerHTML =
-      "Oops, parece que busca não retornou nenhum resultado :(";
+      "Oops, parece que sua busca não retornou nenhum resultado :(";
   }
 }

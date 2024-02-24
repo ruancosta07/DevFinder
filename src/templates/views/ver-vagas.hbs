@@ -15,8 +15,7 @@
 </head>
 <body>
     {{>header}}
-    {{#if vagasEncontradas}}
-   {{else}}
+
     <main class="mt-[120px] mb-[80px]">
       <div class="container-width grid lg:grid-cols-2 gap-12">
         <article>
@@ -27,7 +26,7 @@
         <img src="/assets/images/ver-vagas.svg" alt="" class="max-lg:hidden relative bottom-16" data-animate="right">
       </div>
     </main>
-    {{/if}}
+
         <section id="ver-vagas" class="container-width grid lg:grid-cols-3 gap-5 mt-[60px] ">
             <form action="/ver-vagas" method="post" class="col-span-full grid mb-3">
                 <input type="text" name="searchVaga" id="" class="text-[1.2rem] placeholder:text-gray-8" placeholder="ex: desenvolvedor front end" spellcheck="false" autocomplete="off" value="{{searchVaga}}">
