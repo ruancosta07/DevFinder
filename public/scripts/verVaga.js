@@ -12,6 +12,12 @@ function fechaVaga(event) {
     document.querySelector(".filtros").classList.toggle("max-lg:right-full");
     document.querySelector(".ativa-filtros").classList.toggle("hidden");
   }
+
+  if(document.querySelectorAll('.acoesVaga')){
+    document.querySelectorAll('.acoesVaga').forEach((item)=>{
+      item.classList.replace('grid', 'hidden')
+    })
+  }
 }
 
 if (document.querySelector(".vaga-ativa")) {
