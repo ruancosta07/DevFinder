@@ -1,0 +1,52 @@
+#confirmaEmail {
+    position: fixed;
+    left: 30%;
+    top: 50%;
+    width: 600px;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 2px 8px 2px rgba(0, 0, 0, .20);
+    border-radius: 4px;
+    z-index: 4 !important;
+}
+
+#alterarSenha {
+    position: fixed;
+    left: 30%;
+    top: 50%;
+    width: 600px;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 2px 8px 2px rgba(0, 0, 0, .20);
+    border-radius: 4px;
+    z-index: 4 !important;
+}
+
+#confirmaEmail.ativo {
+    animation: alterarSenha .7s ease forwards;
+}
+
+#alterarSenha.ativo {
+    animation: alterarSenha .7s ease forwards;
+}
+
+@keyframes alterarSenha {
+    0% {
+        left: 30%;
+    }
+
+    50% {
+        left: 60%;
+    }
+
+    100% {
+        left: 50%;
+    }
+}
+
+.form-ativo.on {
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, .60);
+    z-index: 3;
+    top: 0;
+}
