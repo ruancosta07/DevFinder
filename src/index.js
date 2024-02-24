@@ -91,8 +91,9 @@ mongoose
   .then(() => {
     console.log("conectado ao db");
   })
-  .catch(() => {
+  .catch((err) => {
     console.log("erro ao conectar");
+    throw err
   });
 app.use("/", main);
 
