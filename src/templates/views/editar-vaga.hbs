@@ -21,24 +21,24 @@
     <input type="hidden" name="id" value="{{vaga.id}}">
     <div class="titulo-vaga mb-3" data-animate="left">
         <label for="" class="text-[1.25rem]">Título da vaga</label>
-        <input type="text" name="title" id="" class="mt-1" value="{{vaga.title}}">
+        <input type="text" autocomplete="off" name="title" id="" class="mt-1" value="{{vaga.title}}">
     </div>
     <div class="titulo-vaga mb-3" data-animate="left">
         <label for="" class="text-[1.25rem]">Nome da empresa</label>
-        <input type="text" name="enterprise" id="" class="mt-1" value="{{vaga.enterprise}}">
+        <input type="text" autocomplete="off" name="enterprise" id="" class="mt-1" value="{{vaga.enterprise}}">
     </div>
     <div class="titulo-vaga mb-3 col-span-full" data-animate="left">
         <label for="" class="text-[1.25rem]">Requisitos da vaga</label>
         <div>
         {{#each (split vaga.requirements '§')}}
             <div class="relative">
-                <input type="text" name="requisitosVaga" id="" class="mt-1 mb-2" value="{{this}}">
+                <input type="text" autocomplete="off" name="requisitosVaga" id="" class="mt-1 mb-2" value="{{this}}">
                 <i class="excluir-input cursor-pointer ri-delete-bin-line text-[1.5rem] absolute right-2 top-2/4 -translate-y-2/4 leading-none text-gray-10"></i>
             </div>
         {{/each}}
         
         <button type="button" id="adicionarRequisito" class="bg-blue-10 px-4 py-2 rounded text-gray-1 mt-3 text-[1.15rem]"><i class="ri-add-line mr-1"></i>Adicionar requisitos</button>
-        <input type="text" name="requirements" id="" hidden>
+        <input type="text" autocomplete="off" name="requirements" id="" hidden>
         </div>
     </div>
     <div class="titulo-vaga mb-3" data-animate="left">

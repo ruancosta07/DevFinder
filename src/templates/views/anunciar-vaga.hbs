@@ -28,14 +28,14 @@
     <form action="/anunciar-vaga" method="post" class="container-width grid lg:grid-cols-2 gap-x-8 gap-y-4" id="anunciarVaga">
     <div class="input-vaga mb-3" data-animate="left">
         <label for="" class="text-[1.25rem]">Título da vaga</label>
-        <input type="text" name="title" id="" class="mt-1" value="{{title}}">
+        <input spellcheck="false" autocomplete="off" type="text" name="title" id="" class="mt-1" value="{{title}}">
         {{#if erros.erroTitle}}
         <span class="erro-vaga inline-block mt-1 text-red-600">{{erros.erroTitle}}</span>
         {{/if}}
     </div>
     <div class="input-vaga mb-3" data-animate="left">
         <label for="" class="text-[1.25rem]">Nome da empresa</label>
-        <input type="text" name="enterprise" id="" class="mt-1" value="{{enterprise}}">
+        <input spellcheck="false" autocomplete="off" type="text" name="enterprise" id="" class="mt-1" value="{{enterprise}}">
         {{#if erros.erroEnterprise}}
         <span class="erro-vaga inline-block mt-1 text-red-600">{{erros.erroEnterprise}}</span>
         {{/if}}
@@ -45,21 +45,21 @@
         <div>
         {{#if requirements}}
          {{#each (split requirements '§')}}
-                <input type="text" name="requisitosVaga" id="" class="mt-1 mb-2" value="{{this}}">
+                <input spellcheck="false" autocomplete="off" type="text" name="requisitosVaga" id="" class="mt-1 mb-2" value="{{this}}">
         {{/each}}
         {{else}}
-        <input type="text" name="requisitosVaga" id="" class="mt-1">
+        <input spellcheck="false" autocomplete="off" type="text" name="requisitosVaga" id="" class="mt-1">
         {{/if}}
         {{#if erros.erroRequirements}}
         <span class="erro-vaga block mt-1 text-red-600">{{erros.erroRequirements}}</span>
         {{/if}}
         <button type="button" id="adicionarRequisito" class="bg-blue-10 px-4 py-2 rounded text-gray-1 mt-3 text-[1.15rem]"><i class="ri-add-line mr-1"></i>Adicionar requisitos</button>
-        <input type="text" name="requirements" id="" hidden>
+        <input spellcheck="false" autocomplete="off" type="text" name="requirements" id="" hidden>
         </div>
     </div>
     <div class="input-vaga mb-3" data-animate="left">
         <label for="" class="text-[1.25rem]">Salário da vaga</label>
-        <input type="number" name="salary" id="" class="mt-1" value="{{salary}}">
+        <input spellcheck="false" autocomplete="off" type="number" name="salary" id="" class="mt-1" value="{{salary}}">
         {{#if erros.erroSalary}}
         <span class="erro-vaga inline-block mt-1 text-red-600">{{erros.erroSalary}}</span>
         {{/if}}
@@ -99,7 +99,7 @@
         <span class="erro-vaga inline-block mt-1 text-red-600">{{erros.erroDescription}}</span>
         {{/if}}
     </div>
-    <input type="hidden" name="createdBy" value="{{user.email}}">
+    <input spellcheck="false" autocomplete="off" type="hidden" name="createdBy" value="{{user.email}}">
     <button id="btn-postar-vaga" type="submit" class=" col-span-full bg-blue-10 block mt-12 w-full py-4 rounded text-neutral-50 text-[1.30rem]"><i class="ri-contract-line mr-2 text-[1.5rem]"></i>Postar vaga</button>
     </form>
 
