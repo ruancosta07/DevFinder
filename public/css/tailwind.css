@@ -576,6 +576,10 @@ video {
   bottom: 2rem;
 }
 
+.left-0 {
+  left: 0px;
+}
+
 .left-3 {
   left: 0.75rem;
 }
@@ -797,6 +801,10 @@ video {
   display: block;
 }
 
+.inline-block {
+  display: inline-block;
+}
+
 .flex {
   display: flex;
 }
@@ -1002,6 +1010,10 @@ video {
 
 .p-12 {
   padding: 3rem;
+}
+
+.p-6 {
+  padding: 1.5rem;
 }
 
 .p-8 {
@@ -1757,7 +1769,7 @@ footer :where(h1, a) {
 }
 
 @media (max-width: 768px) {
-  body{
+  body {
     overflow-x: hidden !important;
   }
 
@@ -1850,7 +1862,7 @@ footer :where(h1, a) {
     grid-template-columns: 1fr;
   }
 
-  .filtros{
+  .filtros {
     position: fixed !important;
     top: 15% !important;
     height: -moz-fit-content !important;
@@ -1863,35 +1875,39 @@ footer :where(h1, a) {
   }
 
   @keyframes filtros {
-    0%{
+    0% {
       right: -100%;
       opacity: 0;
     }
 
-    100%{
+    100% {
       right: 0%;
     }
   }
 }
 
-@media ((min-width:1024px) and (max-width: 1440px)){
-  .container-width{
+@media ((min-width:1024px) and (max-width: 1440px)) {
+  .container-width {
     max-width: 1200px;
   }
 }
 
-.editar-vaga{
-  border-radius: 4px 4px 0 0 ;
+.editar-vaga {
+  border-radius: 4px 4px 0 0;
 }
 
-.excluir-vaga{
-  border-radius: 0 0 4px 4px ;
+.excluir-vaga {
+  border-radius: 0 0 4px 4px;
 }
 
-@media ((min-width: 768px) and (max-width:1024px))  {
-  .container-width{
+@media ((min-width: 768px) and (max-width:1024px)) {
+  .container-width {
     padding: 0 40px;
   }
+}
+
+.erroVaga {
+  box-shadow: 0 0 0 1.5px rgb(220, 38, 38) !important;
 }
 
 .placeholder\:text-gray-10::-moz-placeholder {
@@ -1922,6 +1938,11 @@ footer :where(h1, a) {
 .hover\:bg-red-600:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(220 38 38 / var(--tw-bg-opacity));
+}
+
+.hover\:text-blue-7:hover {
+  --tw-text-opacity: 1;
+  color: rgb(81 105 203 / var(--tw-text-opacity));
 }
 
 .hover\:text-gray-1:hover {

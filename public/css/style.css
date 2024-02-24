@@ -135,6 +135,8 @@ input:not(input[type="radio"], input[type="checkbox"]):focus~label:not([for="rec
   color: #407BFF !important;
 }
 
+
+
 .labelAtivo {
   top: -5% !important;
   transform: translateY(-70%);
@@ -501,7 +503,7 @@ footer :where(h1, a) {
 
 @media (max-width: 768px) {
 
-  body{
+  body {
     overflow-x: hidden !important;
   }
 
@@ -589,49 +591,55 @@ footer :where(h1, a) {
     width: 100% !important;
   } */
 
-#ver-vagas form:not(.filtros) {
-  display: grid;
-  grid-template-columns: 1fr;
-}
-
-.filtros{
-  position: fixed !important; 
-  top: 15% !important;
-  height: fit-content !important;
-  padding-bottom: 24px;
-}
-
-.filtrosAnimate {
-  animation: filtros .7s ease;
-}
-
-@keyframes filtros {
-  0%{
-    right: -100%;
-    opacity: 0;
+  #ver-vagas form:not(.filtros) {
+    display: grid;
+    grid-template-columns: 1fr;
   }
-  100%{
-    right: 0%;
+
+  .filtros {
+    position: fixed !important;
+    top: 15% !important;
+    height: fit-content !important;
+    padding-bottom: 24px;
   }
-}
+
+  .filtrosAnimate {
+    animation: filtros .7s ease;
+  }
+
+  @keyframes filtros {
+    0% {
+      right: -100%;
+      opacity: 0;
+    }
+
+    100% {
+      right: 0%;
+    }
+  }
 
 }
 
-@media ((min-width:1024px) and (max-width: 1440px)){
-  .container-width{
+@media ((min-width:1024px) and (max-width: 1440px)) {
+  .container-width {
     max-width: 1200px;
   }
 }
 
-.editar-vaga{
-  border-radius: 4px 4px 0 0 ;
-}
-.excluir-vaga{
-  border-radius: 0 0 4px 4px ;
+.editar-vaga {
+  border-radius: 4px 4px 0 0;
 }
 
-@media ((min-width: 768px) and (max-width:1024px))  {
-  .container-width{
+.excluir-vaga {
+  border-radius: 0 0 4px 4px;
+}
+
+@media ((min-width: 768px) and (max-width:1024px)) {
+  .container-width {
     padding: 0 40px;
   }
+}
+
+.erroVaga {
+  box-shadow: 0 0 0 1.5px rgb(220, 38, 38) !important;
 }
