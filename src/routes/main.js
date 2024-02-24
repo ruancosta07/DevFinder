@@ -58,10 +58,6 @@ main.post("/editar-vaga", checkRole(), (req, res) => {
       req.flash("vagaUpdated", "Vaga atualizada com sucesso!");
       res.redirect(`/editar-vaga/${updatedVaga._id}`);
     })
-    .catch((err) => {
-      // Trate o erro
-      res.status(500).send(err);
-    });
 });
 
 main.get("/criar-conta", (req, res) => {
@@ -70,11 +66,12 @@ main.get("/criar-conta", (req, res) => {
 
 main.post("/criar-conta", async (req, res) => {
   let erros = {};
+  let { name, email, role, password } = req.body;
   const novoUsuario = {
-    name: req.body.name,
-    email: req.body.email,
-    role: req.body.role,
-    password: req.body.password,
+    name,
+    email,
+    role,
+    password,
   };
 
   if (
@@ -110,7 +107,7 @@ main.post("/criar-conta", async (req, res) => {
   }
 
   if (Object.values(erros).length > 0) {
-    res.render("criar-conta", { erros });
+    res.render("criar-conta", { erros, name, email, password });
   } else {
     const { email } = req.body;
     const user = await Usuario.find({ email });
@@ -163,20 +160,67 @@ main.get("/anunciar-vaga", checkRole(), (req, res) => {
 });
 
 main.post("/anunciar-vaga", (req, res) => {
+  const {
+    title,
+    enterprise,
+    requirements,
+    salary,
+    level,
+    description,
+    createdBy,
+  } = req.body;
+
   const novaVaga = {
-    title: req.body.title,
-    enterprise: req.body.enterprise,
-    requirements: req.body.requirements,
-    salary: req.body.salary,
-    level: req.body.level,
-    description: req.body.description,
-    createdBy: req.body.createdBy,
+    title,
+    enterprise,
+    requirements,
+    salary,
+    level,
+    description,
+    createdBy,
   };
 
-  Vaga.create(novaVaga).then(() => {
-    req.flash("vagaSuccess", "Vaga cadastrada com sucesso!");
-    res.redirect("/anunciar-vaga");
-  });
+  let erros = {};
+
+  if (!title || typeof title == undefined || title == null) {
+    erros.erroTitle = "Preencha o campo acima";
+  }
+  if (!enterprise || typeof enterprise == undefined || enterprise == null) {
+    erros.erroEnterprise = "Preencha o campo acima";
+  }
+  if (
+    !requirements ||
+    typeof requirements == undefined ||
+    requirements == null
+  ) {
+    erros.erroRequirements = "Preencha o campo acima";
+  }
+  if (!salary || typeof salary == undefined || salary == null) {
+    erros.erroSalary = "Preencha o campo acima";
+  }
+  if (!level || typeof level == undefined || level == null) {
+    erros.erroLevel = "Preencha o campo acima";
+  }
+  if (!description || typeof description == undefined || description == null) {
+    erros.erroDescription = "Preencha o campo acima";
+  }
+
+  if (Object.values(erros).length > 0) {
+    res.render("anunciar-vaga", {
+      erros,
+      title,
+      enterprise,
+      requirements,
+      salary,
+      level,
+      description,
+    });
+  } else {
+    Vaga.create(novaVaga).then(() => {
+      req.flash("vagaSuccess", "Vaga cadastrada com sucesso!");
+      res.redirect("/anunciar-vaga");
+    });
+  }
 });
 
 main.get("/login", (req, res) => {
@@ -204,11 +248,6 @@ main.post("/login", (req, res) => {
       .then((user) => {
         if (user) {
           bcrypt.compare(password, user.password, (err, isMatch) => {
-            if (err) {
-              req.flash("password_incorrect", "Senha incorreta");
-              return res.redirect("/login");
-            }
-
             if (!isMatch) {
               req.flash("password_incorrect", "Senha incorreta");
               return res.redirect("/login");
@@ -221,7 +260,7 @@ main.post("/login", (req, res) => {
               req.session.token = tokenUser;
               res.cookie("token", tokenUser, {
                 httpOnly: true,
-                secure: false,
+                secure: true,
                 maxAge: 120 * 10 * 1000,
               });
               req.flash("loginSuccess", "Login efetuado com sucesso");
@@ -327,17 +366,21 @@ main.post("/minha-conta", userLogged(), async (req, res) => {
   const token = req.cookies.token;
   let { name, email, password } = req.body;
 
-  // Agora estamos esperando a promessa ser resolvida antes de continuar
-  const hashedPassword = await bcrypt.hash(password, 10);
+  let update = { name, email };
 
-  const update = { name, email, password: hashedPassword };
+  if (password) {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    update.password = hashedPassword;
+  }
+
   const decodedToken = jwt.verify(token, `${JWT_KEY}`);
-  Usuario.findOneAndUpdate({ email: decodedToken.email }, update, {new: true}).select('+password').then((vagaAtualizada) => {
-    res.clearCookie('token')
-    res.redirect('/minha-conta')
-  });
+  Usuario.findOneAndUpdate({ email: decodedToken.email }, update, { new: true })
+    .select("+password")
+    .then((vagaAtualizada) => {
+      res.clearCookie("token");
+      res.redirect("/minha-conta");
+    });
 });
-
 
 main.post("/minha-conta/alterar-senha", userLogged(), (req, res) => {
   const { confirmarSenha } = req.body;
@@ -353,11 +396,56 @@ main.post("/minha-conta/alterar-senha", userLogged(), (req, res) => {
           res.redirect("/minha-conta");
         }
         if (!isMatch) {
-          req.flash('change_password_error', 'As senhas não são iguais')
-          res.redirect('/minha-conta')
+          req.flash("change_password_error", "As senhas não são iguais");
+          res.redirect("/minha-conta");
         }
       });
     });
+});
+
+main.post("/minha-conta/deletar-senha", userLogged(), (req, res) => {
+  const token = req.cookies.token;
+  const decodedToken = jwt.verify(token, `${JWT_KEY}`);
+  const { deletarConta } = req.body;
+  let erros = {};
+  if (
+    !deletarConta ||
+    deletarConta == null ||
+    typeof deletarConta == undefined
+  ) {
+    erros.empty = "Preencha o campo acima";
+  } else if (deletarConta != "deletar minha conta") {
+    erros.wrong = "Preencha o campo acima corretamente";
+  }
+  if (Object.values(erros).length > 0) {
+    res.render("minha-conta", { erros });
+  } else {
+    Vaga.deleteMany({ createdBy: decodedToken.email }).then(() => {
+      Usuario.findOneAndDelete({ email: decodedToken.email }).then(() => {
+        req.flash("delete_account", "Conta deletada com sucesso!");
+        res.clearCookie("token");
+        res.redirect("/");
+      });
+    });
+  }
+});
+
+main.post("/esqueci-minha-senha", (req, res) => {
+  const { confirmarEmail } = req.body;
+  Usuario.findOne({ email: confirmarEmail }).then((user) => {
+    res.render("login.hbs", { userEmail: user.email });
+  });
+});
+
+main.post("/alterar-minha-senha", async (req, res) => {
+  const { alterarSenha, userEmail } = req.body;
+  Usuario.findOneAndUpdate(
+    { email: userEmail },
+    { password: await bcrypt.hash(alterarSenha, 10) },
+    { new: true }
+  ).then(() => {
+    res.redirect("/login");
+  });
 });
 
 main.get("/vagas/:id", (req, res) => {
