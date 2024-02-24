@@ -26,29 +26,58 @@
     </main>
 
     <form action="/anunciar-vaga" method="post" class="container-width grid lg:grid-cols-2 gap-x-8 gap-y-4" id="anunciarVaga">
-    <div class="titulo-vaga mb-3" data-animate="left">
+    <div class="input-vaga mb-3" data-animate="left">
         <label for="" class="text-[1.25rem]">Título da vaga</label>
-        <input type="text" name="title" id="" class="mt-1">
+        <input type="text" name="title" id="" class="mt-1" value="{{title}}">
+        {{#if erros.erroTitle}}
+        <span class="erro-vaga inline-block mt-1 text-red-600">{{erros.erroTitle}}</span>
+        {{/if}}
     </div>
-    <div class="titulo-vaga mb-3" data-animate="left">
+    <div class="input-vaga mb-3" data-animate="left">
         <label for="" class="text-[1.25rem]">Nome da empresa</label>
-        <input type="text" name="enterprise" id="" class="mt-1">
+        <input type="text" name="enterprise" id="" class="mt-1" value="{{enterprise}}">
+        {{#if erros.erroEnterprise}}
+        <span class="erro-vaga inline-block mt-1 text-red-600">{{erros.erroEnterprise}}</span>
+        {{/if}}
     </div>
-    <div class="titulo-vaga mb-3 col-span-full" data-animate="left">
+    <div class="requisitos-vaga mb-3 col-span-full" data-animate="left">
         <label for="" class="text-[1.25rem]">Requisitos da vaga</label>
         <div>
+        {{#if requirements}}
+         {{#each (split requirements '§')}}
+                <input type="text" name="requisitosVaga" id="" class="mt-1 mb-2" value="{{this}}">
+        {{/each}}
+        {{else}}
         <input type="text" name="requisitosVaga" id="" class="mt-1">
+        {{/if}}
+        {{#if erros.erroRequirements}}
+        <span class="erro-vaga block mt-1 text-red-600">{{erros.erroRequirements}}</span>
+        {{/if}}
         <button type="button" id="adicionarRequisito" class="bg-blue-10 px-4 py-2 rounded text-gray-1 mt-3 text-[1.15rem]"><i class="ri-add-line mr-1"></i>Adicionar requisitos</button>
         <input type="text" name="requirements" id="" hidden>
         </div>
     </div>
-    <div class="titulo-vaga mb-3" data-animate="left">
+    <div class="input-vaga mb-3" data-animate="left">
         <label for="" class="text-[1.25rem]">Salário da vaga</label>
-        <input type="number" name="salary" id="" class="mt-1">
+        <input type="number" name="salary" id="" class="mt-1" value="{{salary}}">
+        {{#if erros.erroSalary}}
+        <span class="erro-vaga inline-block mt-1 text-red-600">{{erros.erroSalary}}</span>
+        {{/if}}
     </div>
-    <div class="titulo-vaga mb-3" data-animate="left">
+    <div class="level-vaga mb-3" data-animate="left">
         <label for="" class="text-[1.25rem]">Nível da vaga</label>
+        {{#if level}}
         <select name="level" id="" class="text-[1.15rem] mt-1">
+                <option value="" {{#unless level}}selected{{/unless}}></option>
+                <option value="Estágio" {{#if (eq level 'Estágio')}}selected{{/if}}>Estágio</option>
+                <option value="Trainee" {{#if (eq level 'Trainee')}}selected{{/if}}>Trainee</option>
+                <option value="Júnior" {{#if (eq level 'Júnior')}}selected{{/if}}>Júnior</option>
+                <option value="Pleno" {{#if (eq level 'Pleno')}}selected{{/if}}>Pleno</option>
+                <option value="Sênior" {{#if (eq level 'Sênior')}}selected{{/if}}>Sênior</option>
+                <option value="Tech lead" {{#if (eq level 'Tech lead')}}selected{{/if}}>Tech lead</option>
+            </select>
+            {{else}}
+            <select name="level" id="" class="text-[1.15rem] mt-1">
             <option value=""></option>
             <option value="Estágio">Estágio</option>
             <option value="Trainee">Trainee</option>
@@ -57,10 +86,18 @@
             <option value="Sênior">Sênior</option>
             <option value="Tech lead">Tech lead</option>
         </select>
+        {{/if}}
+        
+        {{#if erros.erroLevel}}
+        <span class="erro-vaga inline-block mt-1 text-red-600">{{erros.erroLevel}}</span>
+        {{/if}}
     </div>
-    <div class="titulo-vaga col-span-full" data-animate="left">
+    <div class="descricao-vaga col-span-full" data-animate="left">
         <label for="descricao" class="text-[1.25rem]">Descrição da vaga</label>
-        <textarea name="description" id="descricao" class="mt-1 min-h-[300px]" ></textarea>
+        <textarea name="description" id="descricao" class="mt-1 min-h-[300px]">{{description}}</textarea>
+        {{#if erros.erroDescription}}
+        <span class="erro-vaga inline-block mt-1 text-red-600">{{erros.erroDescription}}</span>
+        {{/if}}
     </div>
     <input type="hidden" name="createdBy" value="{{user.email}}">
     <button id="btn-postar-vaga" type="submit" class=" col-span-full bg-blue-10 block mt-12 w-full py-4 rounded text-neutral-50 text-[1.30rem]"><i class="ri-contract-line mr-2 text-[1.5rem]"></i>Postar vaga</button>

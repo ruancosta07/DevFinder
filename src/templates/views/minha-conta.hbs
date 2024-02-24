@@ -12,14 +12,14 @@
     <script src="/scripts/home.js" defer></script>
     <script src="/scripts/flashMsg.js" defer></script>
     <script src="/scripts/animate.js" defer></script>
-    <script src="/scripts/alterarSenha.js" defer></script>
+    <script src="/scripts/minhaConta.js" defer></script>
     <link rel="shortcut icon" href="/logo.svg" type="image/x-icon">
 </head>
 <body>
     {{>header}}
     <main class="mt-[60px]">
         <div class="container-width grid lg:grid-cols-2">
-            <form action="/minha-conta" method="post" class="mx-auto py-16">
+            <form action="/minha-conta" method="post" class="mx-auto py-16 relative">
             <h1 class="text-[2.5rem] text-center mb-8 font-semibold"><span class="text-blue-8">Minha</span> conta</h1>
                 <div class="mt-3">
                     <label for="name" class="relative">Nome completo</label>
@@ -41,12 +41,39 @@
                     </div>
                 </div>
                 <button type="submit" class="text-gray-1 bg-blue-10 py-3 rounded w-full text-[1.1rem] mt-8">Salvar alterações</button>
+                <button type="button" id="deletar-conta-btn" class="text-red-600 absolute bottom-16 left-0 text-[1.1rem]"><i class="ri-close-fill mr-1"></i>Encerrar conta</button>
             </form>
             <div class="gradient banner max-lg:hidden">
                 <img src="/assets/images/account.svg" alt="">
             </div>
         </div>
     </main>
+    {{#if erros}}
+            <form action="/minha-conta/deletar-senha" method="post" id="deletar-conta-form" class="z-[4] ativo">
+            <div class="grid gap-1">
+        <span class="text-[1.25rem] justify-self-center">Todas as vagas postadas serão excluídas. Para deletar sua conta digite <span class="font-semibold text-gray-16">deletar minha conta</span></span>
+            <input type="text" name="deletarConta" id="" class="">
+            {{#if erros.empty}}
+            <span class="erro-deletar text-red-600 inline-block mt-1">{{erros.empty}}</span>
+            {{/if}}
+            {{#if erros.wrong}}
+            <span class="erro-deletar text-red-600 inline-block mt-1">{{erros.wrong}}</span>
+            {{/if}}
+            
+        </div>
+        <button type="submit" class="bg-red-600 mt-5 rounded text-gray-1 py-4 text-[1.25rem] w-full">Deletar conta</button>
+    </div>
+    </form>
+    {{else}}
+    <form action="/minha-conta/deletar-senha" method="post" id="deletar-conta-form" class="z-[4] hidden">
+    <div class="grid gap-1">
+        <span class="text-[1.25rem] justify-self-center">Todas as vagas postadas serão excluídas. Para deletar sua conta digite <span class="font-semibold text-gray-16">deletar minha conta</span></span>
+            <input type="text" name="deletarConta" id="" class="">
+        </div>
+        <button type="submit" class="bg-red-600 mt-5 rounded text-gray-1 py-4 text-[1.25rem] w-full">Deletar conta</button>
+    </div>
+    </form>
+    {{/if}}
 
     {{#if change_password_error}}
     <span class="flashMsg bg-red-600 text-neutral-50 px-4 py-2 rounded fixed -right-full bottom-8"><i class="ri-error-warning-line mr-1"></i>{{change_password_error}}</span>

@@ -7,11 +7,14 @@
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="./css/tailwind.css">
     <link rel="stylesheet" href="./css/animate.css">
+    <link rel="stylesheet" href="./css/alterarSenha.css">
     <link rel="stylesheet" href="./css/remixicon/fonts/remixicon.css">
     <script src="/scripts/criarConta.js" defer></script>
     <script src="/scripts/flashMsg.js" defer></script>
     <script src="/scripts/animate.js" defer></script>
     <script src="/scripts/home.js" defer></script>
+    <script src="/scripts/esqueciSenha.js" defer></script>
+    <script src="/scripts/login.js" defer></script>
     <link rel="shortcut icon" href="/logo.svg" type="image/x-icon">
 </head>
 <body>
@@ -25,27 +28,30 @@
                 <label for="email">Email</label>
                 <i class="ri-mail-line absolute right-4 top-2/4 -translate-y-2/4 text-[1.1rem] text-gray-9"></i>
             </div>
+            {{#if erros.email_error}}
+            <span class="erro-input text-red-600 text-[.9rem] mt-1 inline-block"></i>{{erros.email_error}}</span>
+            {{/if}}
         </div>
-        <div class="mb-8 relative w-[60%]">
-            <div class="h-[48px]"><input type="password" name="password" id="password"  autocomplete="new-password">
+        <div class=" mb-1 relative w-[60%]">
+            <div class="h-[48px] relative"><input type="password" name="password" id="password"  autocomplete="new-password">
             <label for="password">Senha</label>
             <i id="verSenha" class="ri-eye-line cursor-pointer absolute right-4 top-2/4 -translate-y-2/4 text-[1.1rem] text-gray-9"></i>
-            <i id="esconderSenha" class="ri-eye-off-line cursor-pointer absolute right-4 top-2/4 -translate-y-2/4 text-[1.1rem] text-gray-9 hidden"></i></div>
+            <i id="esconderSenha" class="ri-eye-off-line cursor-pointer absolute right-4 top-2/4 -translate-y-2/4 text-[1.1rem] text-gray-9 hidden"></i>
+            </div>
+        {{#if erros.password_error}}
+            <span class="erro-input text-red-600 text-[.9rem] mt-1 inline-block"></i>{{erros.email_error}}</span>
+        {{/if}}
         </div>
+        <span class="text-[.85rem] text-gray-10 cursor-pointer hover:text-blue-7" id="esqueci-senha-btn">Esqueci minha senha</span>
         <button id="btn-criar-conta" type="submit" class="block mt-12 w-[60%] py-4 rounded bg-blue-10 text-neutral-50 text-[1.35rem]">Fazer login</button>
         </form>
         <picture class="grid items-center max-lg:hidden">
             <img src="/assets/images/banner-login.svg" alt="" width="550">
         </picture>
-        {{#if erros.email_error}}
-        <span class="flashMsg bg-red-600 text-neutral-50 px-4 py-2 rounded fixed -right-full bottom-8"><i class="ri-error-warning-line mr-1"></i>{{erros.email_error}}</span>
-        {{/if}}
+        
         {{#if user_not_found}}
         <span class="flashMsg bg-red-600 text-neutral-50 px-4 py-2 rounded fixed -right-full bottom-8"><i class="ri-error-warning-line mr-1"></i>{{user_not_found}}</span>
         {{/if}} 
-        {{#if erros.password_error}}
-            <span class="flashMsg bg-red-600 text-neutral-50 px-4 py-2 rounded fixed -right-full bottom-8"><i class="ri-error-warning-line mr-1"></i>{{password_error}}</span>
-        {{/if}}
         {{#if password_incorrect}}
             <span class="flashMsg bg-red-600 text-neutral-50 px-4 py-2 rounded fixed -right-full bottom-8"><i class="ri-error-warning-line mr-1"></i>{{password_incorrect}}</span>
         {{/if}}
@@ -53,6 +59,25 @@
         <span class="flashMsg loginSuccess bg-green-600 text-neutral-50 px-4 py-2 rounded fixed -right-full bottom-8"><i class="ri-checkbox-circle-line mr-1"></i>{{loginSuccess}}</span>
         {{/if}}
     </main>
+    {{#if userEmail}}
+        <form action="/alterar-minha-senha" method="post" class="bg-gray-1 p-6 ativo" id="alterarSenha">
+        <div>
+        <span class="text-[1.25rem] mb-1 inline-block">Digite sua nova senha:</span>
+        <input type="password" name="alterarSenha" id="" class="text-[1.25rem]">
+        <input type="hidden" name="userEmail" id="" class="text-[1.25rem]" value="{{userEmail}}">
+        <button type="submit" class="bg-blue-10 py-3 rounded text-neutral-50 w-full text-[1.2rem] mt-3">Alterar senha</button>
+    </div>
+    {{else}}
+        <form action="/esqueci-minha-senha" method="post" class="bg-gray-1 p-6 hidden z-[3]" id="confirmaEmail">
+    <div>
+        <span class="text-[1.25rem] mb-1 inline-block">Para continuar, digite seu email:</span>
+        <input type="email" name="confirmarEmail" id="" class="text-[1.25rem]">
+        <button type="submit" class="bg-blue-10 py-3 rounded text-neutral-50 w-full text-[1.2rem] mt-3">Confirmar email</button>
+    </div>
+    </form>
+    {{/if}}
+    </form>
+    <div class="form-ativo"></div>
     {{>footer}}
 </body>
 </html>

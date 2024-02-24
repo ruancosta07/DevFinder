@@ -22,7 +22,7 @@
         {{!-- <h1 class="text-[4.5rem] relative bottom-16 font-semibold">Criar <span class="gradient">conta</span></h1> --}}
         <div class="mb-9 relative w-[60%]">
             <div>
-                <input type="text" name="name" id="name"  autocomplete="off">
+                <input type="text" name="name" id="name"  autocomplete="off" value="{{name}}">
             <label for="name">Nome completo</label>
             <i class="ri-user-line absolute right-4 top-2/4 -translate-y-2/4 text-[1.1rem] text-gray-9"></i>
             </div>
@@ -33,7 +33,7 @@
         </div>
         <div class="mb-9 relative w-[60%]">
             <div>
-                <input type="email" name="email" id="email" autocomplete="off">
+                <input type="email" name="email" id="email" autocomplete="off" value="{{email}}">
                 <label for="email">Email</label>
                 <i class="ri-mail-line absolute right-4 top-2/4 -translate-y-2/4 text-[1.1rem] text-gray-9"></i>
             </div>
@@ -42,7 +42,7 @@
             {{/if}}
         </div>
         <div class="mb-8 relative w-[60%]">
-            <div><input type="password" name="password" id="password"  autocomplete="new-password">
+            <div><input type="password" name="password" id="password"  autocomplete="new-password" value="{{password}}">
             <label for="password">Senha</label>
             <i id="verSenha" class="ri-eye-line cursor-pointer absolute right-4 top-2/4 -translate-y-2/4 text-[1.1rem] text-gray-9"></i>
             <i id="esconderSenha" class="ri-eye-off-line cursor-pointer absolute right-4 top-2/4 -translate-y-2/4 text-[1.1rem] text-gray-9 hidden"></i></div>
