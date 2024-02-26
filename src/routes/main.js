@@ -276,10 +276,15 @@ main.post("/login", (req, res) => {
 });
 
 main.get("/ver-vagas", (req, res) => {
+  const token = req.cookies.token
+  const decodedToken = jwt.verify(token, `${JWT_KEY}`)
   Vaga.find()
     .sort({ date: "desc" })
     .then((vagas) => {
-      res.render("ver-vagas", { vagas, token: req.cookies.token });
+      Usuario.findOne({ email: decodedToken.email }).then((user) => {
+        const userEmail = user.email;
+        res.render("ver-vagas", { vagas, token, userEmail });
+      });
     });
 });
 
@@ -310,13 +315,16 @@ main.post("/ver-vagas", async (req, res) => {
   if (back) titleRegex.push(new RegExp("Back", "i"));
   if (full) titleRegex.push(new RegExp("Full", "i"));
   if (titleRegex.length > 0) query.title = { $in: titleRegex };
-
+  const token = req.cookies.token
+  const decodedToken = jwt.verify(token, `${JWT_KEY}`)
   const vagasEncontradas = await Vaga.find(query).sort({ title: "asc" });
+  const user = await Usuario.findOne({email: decodedToken.email})
 
   const quantidade = await Vaga.countDocuments(query);
 
   res.render("ver-vagas", {
     vagasEncontradas,
+    userEmail: user.email,
     quantidade,
     searchVaga,
     min,
