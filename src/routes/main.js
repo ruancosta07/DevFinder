@@ -53,11 +53,12 @@ main.post("/editar-vaga", checkRole(), (req, res) => {
     req.body;
   let update = { title, enterprise, requirements, salary, level, description };
 
-  Vaga.findOneAndUpdate({ _id: id }, update, { new: true })
-    .then((updatedVaga) => {
+  Vaga.findOneAndUpdate({ _id: id }, update, { new: true }).then(
+    (updatedVaga) => {
       req.flash("vagaUpdated", "Vaga atualizada com sucesso!");
       res.redirect(`/editar-vaga/${updatedVaga._id}`);
-    })
+    }
+  );
 });
 
 main.get("/criar-conta", (req, res) => {
@@ -260,7 +261,7 @@ main.post("/login", (req, res) => {
               req.session.token = tokenUser;
               res.cookie("token", tokenUser, {
                 httpOnly: true,
-                secure: true,
+                secure: false,
                 maxAge: 120 * 10 * 1000,
               });
               req.flash("loginSuccess", "Login efetuado com sucesso");
@@ -275,17 +276,18 @@ main.post("/login", (req, res) => {
   }
 });
 
-main.get("/ver-vagas", (req, res) => {
-  const token = req.cookies.token
-  const decodedToken = jwt.verify(token, `${JWT_KEY}`)
-  Vaga.find()
-    .sort({ date: "desc" })
-    .then((vagas) => {
-      Usuario.findOne({ email: decodedToken.email }).then((user) => {
-        const userEmail = user.email;
-        res.render("ver-vagas", { vagas, token, userEmail });
-      });
-    });
+main.get("/ver-vagas", async (req, res) => {
+  const token = req.cookies.token;
+  const vagas = await Vaga.find().sort({ date: "desc" });
+  try {
+    if (token) {
+      const decodedToken = jwt.verify(token, `${JWT_KEY}`);
+      const user = await Usuario.findOne({ email: decodedToken.email });
+      res.render("ver-vagas", { vagas, token, userEmail: user });
+    } else {
+      res.render("ver-vagas", { vagas });
+    }
+  } catch (error) {}
 });
 
 main.get("/logout", function (req, res) {
@@ -315,10 +317,10 @@ main.post("/ver-vagas", async (req, res) => {
   if (back) titleRegex.push(new RegExp("Back", "i"));
   if (full) titleRegex.push(new RegExp("Full", "i"));
   if (titleRegex.length > 0) query.title = { $in: titleRegex };
-  const token = req.cookies.token
-  const decodedToken = jwt.verify(token, `${JWT_KEY}`)
+  const token = req.cookies.token;
+  const decodedToken = jwt.verify(token, `${JWT_KEY}`);
   const vagasEncontradas = await Vaga.find(query).sort({ title: "asc" });
-  const user = await Usuario.findOne({email: decodedToken.email})
+  const user = await Usuario.findOne({ email: decodedToken.email });
 
   const quantidade = await Vaga.countDocuments(query);
 
