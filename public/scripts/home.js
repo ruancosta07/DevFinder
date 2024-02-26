@@ -15,15 +15,17 @@ if (document.querySelector(".account")) {
   });
 }
 
-document.getElementById("menu-mobile").addEventListener("change", function () {
-  this.parentElement.querySelector("ul").style.transition = ".35s ease";
-  this.parentElement.querySelector("ul").style.height = "0px";
-  this.parentElement.querySelector("ul").style.fontSize = "0px";
-  this.parentElement.querySelector("ul").classList.toggle("max-lg:hidden");
-  setTimeout(() => {
-    this.parentElement.querySelector("ul").style.height = "inherit";
-    this.parentElement.querySelector("ul").style.fontSize = "1.2rem";
-  });
-});
-
-
+if (document.getElementById("menu-mobile")) {
+  document
+    .getElementById("menu-mobile")
+    .addEventListener("change", function () {
+      this.parentElement.querySelector("ul").style.transition = ".35s ease";
+      this.parentElement.querySelector("ul").style.height = "0px";
+      this.parentElement.querySelector("ul").style.fontSize = "0px";
+      this.parentElement.querySelector("ul").classList.toggle("max-lg:hidden");
+      setTimeout(() => {
+        this.parentElement.querySelector("ul").style.height = "inherit";
+        this.parentElement.querySelector("ul").style.fontSize = "1.2rem";
+      });
+    });
+}

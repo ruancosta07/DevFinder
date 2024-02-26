@@ -153,13 +153,13 @@
             <h3 class="">Requisitos e atribuições:</h3>
             <ul class="mb-5">
             {{#each (limit (split this.requirements '§') 4)}}
-              <li class="list-disc ml-5 max-2xl:text-[.9rem]">{{truncate this 40}}</li>
+              <li class="list-disc ml-5 max-2xl:text-[.9rem]">{{truncate this 30}}</li>
             {{/each}}
             </ul>
             </div>
-          <div class="tags flex absolute right-6 bottom-6 gap-2 font-medium">
-            <span class="text-gray-12 bg-gray-6 rounded py-[2px] px-3 text-[.75rem] 2xl:text-[.95rem]">R$ {{this.salary}}</span>
-            <span class="text-gray-12 bg-gray-6 rounded py-[2px] px-3 text-[.75rem] 2xl:text-[.95rem]">{{this.level}}</span>
+          <div class="tags flex absolute left-6 bottom-6 gap-2 font-medium">
+            <span class="text-gray-12 bg-gray-5 rounded py-[2px] px-3 text-[.9rem] 2xl:text-[.95rem]">R$ {{this.salary}}</span>
+            <span class="text-gray-12 bg-gray-5 rounded py-[2px] px-3 text-[.9rem] 2xl:text-[.95rem]">{{this.level}}</span>
           </div>
           {{#equals ../userEmail this.createdBy}}
           <div class="acoesVaga absolute text-gray-13 hidden w-[168px] bg-gray-1 rounded">
@@ -169,7 +169,7 @@
           {{/equals}}
         </div>
         {{/each}}
-                <section class="container-width grid gap-8">
+          <section class="container-width grid gap-8">
           {{#each vagasEncontradas}}
           <div class="vagaExpanded rounded-md z-[3] hidden bg-gray-1 p-8" data-id="{{this.id}}">
             <div class="content">
@@ -201,13 +201,13 @@
             <h3 class="">Requisitos e atribuições:</h3>
             <ul class="mb-[12px]">
             {{#each (limit (split this.requirements '§') 4)}}
-              <li class="list-disc ml-5 lg:text-[.9rem] 2xl:text-[1rem]">{{truncate this 40}}</li>
+              <li class="list-disc ml-5 lg:text-[.9rem] 2xl:text-[1rem]">{{truncate this 30}}</li>
             {{/each}}
             </ul>
             </div>
-          <div class="tags flex absolute left-6 bottom-6 gap-[2px] lg:gap-2 font-medium">
-            <span class="text-gray-12 bg-gray-4 rounded py-[2px] px-3 text-[.75rem] 2xl:text-[.95rem]">R$ {{this.salary}}</span>
-            <span class="text-gray-12 bg-gray-4 rounded py-[2px] px-3 text-[.75rem] 2xl:text-[.95rem]">{{this.level}}</span>
+          <div class="tags flex absolute left-6 bottom-6 gap-1 lg:gap-2 font-medium">
+            <span class="text-gray-12 bg-gray-5 rounded py-[2px] px-3 text-[.9rem] 2xl:text-[.95rem]">R$ {{this.salary}}</span>
+            <span class="text-gray-12 bg-gray-5 rounded py-[2px] px-3 text-[.9rem] 2xl:text-[.95rem]">{{this.level}}</span>
           </div>
           {{#equals ../userEmail this.createdBy}}
           <div class="acoesVaga absolute text-gray-13 hidden w-[168px] bg-gray-1 rounded">
@@ -235,8 +235,8 @@
             </ul>
             </div>
           <div class="tags flex absolute right-6 bottom-8 gap-2 font-medium">
-            <span class="text-gray-12 bg-gray-4 rounded py-[2px] px-3 text-[.8rem] 2xl:text-[.95rem]">R$ {{this.salary}}</span>
-            <span class="text-gray-12 bg-gray-4 rounded py-[2px] px-3 text-[.8rem] 2xl:text-[.95rem]">{{this.level}}</span>
+            <span class="text-gray-12 bg-gray-5 rounded py-[2px] px-3 text-[.8rem] 2xl:text-[.95rem]">R$ {{this.salary}}</span>
+            <span class="text-gray-12 bg-gray-5 rounded py-[2px] px-3 text-[.8rem] 2xl:text-[.95rem]">{{this.level}}</span>
           </div>
           <a href="/vagas/{{this.id}}" class="bg-blue-10 px-4 py-1 h-fit w-fit text-gray-1 rounded mt-auto text-[1.15rem]">Candidatar-se</a>
         </div>

@@ -35,8 +35,8 @@ allVagas.forEach((vaga) => {
           acoesVaga.style.position = "absolute";
           acoesVaga.style.zIndex = 5;
           acoesVaga.classList.replace("hidden", "grid");
-          acoesVaga.style.left = `${x}px`;
-          acoesVaga.style.top = `${y}px`;
+          acoesVaga.style.left = x - 20 + 'px';
+          acoesVaga.style.top = y - 20 + 'px';
           acoesVaga.addEventListener("click", (e) => {
             e.stopPropagation();
           });
@@ -58,5 +58,3 @@ excluirVaga.forEach((item) => {
     event.stopPropagation();
   });
 });
-
-console.log(allVagas);

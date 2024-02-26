@@ -283,7 +283,7 @@ main.get("/ver-vagas", async (req, res) => {
     if (token) {
       const decodedToken = jwt.verify(token, `${JWT_KEY}`);
       const user = await Usuario.findOne({ email: decodedToken.email });
-      res.render("ver-vagas", { vagas, token, userEmail: user });
+      res.render("ver-vagas", { vagas, token, userEmail: user.email });
     } else {
       res.render("ver-vagas", { vagas });
     }
