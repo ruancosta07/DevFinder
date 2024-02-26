@@ -413,7 +413,7 @@ main.post("/minha-conta/alterar-senha", userLogged(), (req, res) => {
     });
 });
 
-main.post("/minha-conta/deletar-senha", userLogged(), (req, res) => {
+main.post("/minha-conta/deletar-senha", userLogged(), async (req, res) => {
   const token = req.cookies.token;
   const decodedToken = jwt.verify(token, `${JWT_KEY}`);
   const { deletarConta } = req.body;
@@ -428,7 +428,10 @@ main.post("/minha-conta/deletar-senha", userLogged(), (req, res) => {
     erros.wrong = "Preencha o campo acima corretamente";
   }
   if (Object.values(erros).length > 0) {
-    res.render("minha-conta", { erros });
+    Usuario.findOne({ email: decodedToken.email }).then((user) => {
+      const { name, email } = user;
+      res.render("minha-conta", { erros, name, email, token })
+    });
   } else {
     Vaga.deleteMany({ createdBy: decodedToken.email }).then(() => {
       Usuario.findOneAndDelete({ email: decodedToken.email }).then(() => {

@@ -632,6 +632,18 @@ video {
   top: 100%;
 }
 
+.bottom-0 {
+  bottom: 0px;
+}
+
+.bottom-2 {
+  bottom: 0.5rem;
+}
+
+.bottom-3 {
+  bottom: 0.75rem;
+}
+
 .z-\[2\] {
   z-index: 2;
 }
@@ -881,6 +893,11 @@ video {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
+.-translate-y-\[50\%\] {
+  --tw-translate-y: -50%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
 .rotate-180 {
   --tw-rotate: 180deg;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
@@ -932,10 +949,6 @@ video {
 
 .gap-8 {
   gap: 2rem;
-}
-
-.gap-\[2px\] {
-  gap: 2px;
 }
 
 .gap-x-8 {
@@ -993,9 +1006,9 @@ video {
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
-.bg-gray-4 {
+.bg-gray-5 {
   --tw-bg-opacity: 1;
-  background-color: rgb(214 214 214 / var(--tw-bg-opacity));
+  background-color: rgb(199 199 199 / var(--tw-bg-opacity));
 }
 
 .bg-gray-6 {
@@ -1011,11 +1024,6 @@ video {
 .bg-red-600 {
   --tw-bg-opacity: 1;
   background-color: rgb(220 38 38 / var(--tw-bg-opacity));
-}
-
-.bg-gray-5 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(199 199 199 / var(--tw-bg-opacity));
 }
 
 .p-12 {
@@ -1095,20 +1103,17 @@ video {
   padding-bottom: 2px;
 }
 
+.py-20 {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
 .pl-3 {
   padding-left: 0.75rem;
 }
 
 .text-center {
   text-align: center;
-}
-
-.text-\[\.75rem\] {
-  font-size: .75rem;
-}
-
-.text-\[\.7rem\] {
-  font-size: .7rem;
 }
 
 .text-\[\.85rem\] {
@@ -2054,6 +2059,10 @@ footer :where(h1, a) {
 @media (min-width: 1024px) {
   .lg\:bottom-12 {
     bottom: 3rem;
+  }
+
+  .lg\:bottom-16 {
+    bottom: 4rem;
   }
 
   .lg\:m-auto {

@@ -63,7 +63,14 @@
         <form action="/alterar-minha-senha" method="post" class="bg-gray-1 p-6 ativo" id="alterarSenha">
         <div>
         <span class="text-[1.25rem] mb-1 inline-block">Digite sua nova senha:</span>
-        <input type="password" name="alterarSenha" id="" class="text-[1.25rem]">
+        <div class="relative">
+            <input type="password" name="alterarSenha" id="" class="text-[1.25rem]">
+            <div class="absolute right-3 top-2/4 -translate-y-[50%] text-[1.35rem] text-gray-10 cursor-pointer">
+            <i id="ver-senha" class="ri-eye-line"></i>
+            <i id="esconder-senha" class="ri-eye-off-line hidden"></i>
+            </div>
+        </div>
+        
         <input type="hidden" name="userEmail" id="" class="text-[1.25rem]" value="{{userEmail}}">
         <button type="submit" class="bg-blue-10 py-3 rounded text-neutral-50 w-full text-[1.2rem] mt-3">Alterar senha</button>
     </div>
@@ -79,5 +86,21 @@
     </form>
     <div class="form-ativo"></div>
     {{>footer}}
+    <script>
+        let alterarSenha = document.querySelector('input[name="alterarSenha"]')
+        let verSenha2 = document.getElementById('ver-senha')
+        let esconderSenha2 = document.getElementById('esconder-senha')
+        verSenha.addEventListener('click', ()=>{
+    verSenha.classList.add('hidden')
+    esconderSenha.classList.remove('hidden')
+    alterarSenha.setAttribute('type', 'text')
+    })
+
+esconderSenha.addEventListener('click', ()=>{
+    verSenha.classList.remove('hidden')
+    esconderSenha.classList.add('hidden')
+    alterarSenha.setAttribute('type', 'password')
+})
+    </script>
 </body>
 </html>

@@ -65,6 +65,7 @@ if (inputName) {
   });
 }
 
+if(inputEmail){
 inputEmail.addEventListener("focus", function () {
   if (document.querySelector(".alertEmail")) {
     document.querySelector(".alertEmail").classList.add("hidden");
@@ -77,7 +78,8 @@ inputEmail.addEventListener("focus", function () {
     .querySelector("label")
     .classList.remove("errorLabel");
 });
-
+}
+if(inputPassword){
 inputPassword.addEventListener("focus", function () {
   if (document.querySelector(".alertPassword")) {
     document.querySelector(".alertPassword").classList.add("hidden");
@@ -87,7 +89,9 @@ inputPassword.addEventListener("focus", function () {
     .querySelector("label")
     .classList.remove("errorLabel");
 });
+}
 
+if(inputsTexto.length > 0){
 inputsTexto.forEach((input) => {
   if (input.value != "") {
     input.classList.add("inputAtivo");
@@ -96,6 +100,7 @@ inputsTexto.forEach((input) => {
     input.parentElement.querySelector("label").classList.remove("errorLabel");
   }
 });
+}
 
 inputsTipoConta.forEach((input)=>{
   input.addEventListener('change', ()=>{
@@ -104,3 +109,4 @@ inputsTipoConta.forEach((input)=>{
     }
   })
 })
+

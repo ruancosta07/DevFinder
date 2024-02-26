@@ -73,3 +73,15 @@ main > div{
     z-index: 3;
     top: 0;
 }
+
+@media (max-width:1024px){
+    #alterar-senha-form{
+        width: 90dvw !important;
+
+    }
+    
+    #deletar-conta-form{
+        width: 90dvw !important;
+
+    }
+}

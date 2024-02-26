@@ -50,3 +50,13 @@
     z-index: 3;
     top: 0;
 }
+
+@media (max-width:1024px) {
+    #confirmaEmail{
+        width: 90dvw;
+    }
+
+    #alterarSenha{
+        width: 90dvw;
+    }
+}

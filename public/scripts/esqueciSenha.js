@@ -1,6 +1,7 @@
 let esqueciSenhaBtn = document.getElementById("esqueci-senha-btn");
 let esqueciSenhaForm = document.getElementById("confirmaEmail");
 let formAtivo = document.querySelector(".form-ativo");
+if(esqueciSenhaBtn){
 esqueciSenhaBtn.addEventListener("click", () => {
   if (esqueciSenhaForm) {
     esqueciSenhaForm.classList.remove("hidden");
@@ -11,7 +12,8 @@ esqueciSenhaBtn.addEventListener("click", () => {
   }
   formAtivo.classList.add("on");
 });
-
+}
+if(formAtivo){
 formAtivo.addEventListener("click", () => {
   if (esqueciSenhaForm) {
     esqueciSenhaForm.classList.add("hidden");
@@ -24,4 +26,5 @@ formAtivo.addEventListener("click", () => {
 
 if (document.getElementById("alterarSenha")) {
   formAtivo.classList.add("on");
+}
 }
