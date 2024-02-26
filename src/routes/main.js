@@ -318,24 +318,57 @@ main.post("/ver-vagas", async (req, res) => {
   if (full) titleRegex.push(new RegExp("Full", "i"));
   if (titleRegex.length > 0) query.title = { $in: titleRegex };
   const token = req.cookies.token;
-  const decodedToken = jwt.verify(token, `${JWT_KEY}`);
   const vagasEncontradas = await Vaga.find(query).sort({ title: "asc" });
-  const user = await Usuario.findOne({ email: decodedToken.email });
-
   const quantidade = await Vaga.countDocuments(query);
 
-  res.render("ver-vagas", {
-    vagasEncontradas,
-    userEmail: user.email,
-    quantidade,
-    searchVaga,
-    min,
-    max,
-    front,
-    back,
-    full,
-    level,
-  });
+  if(token){
+    const decodedToken = jwt.verify(token, `${JWT_KEY}`);
+    const user = await Usuario.findOne({ email: decodedToken.email })
+    res.render("ver-vagas", {
+      vagasEncontradas,
+      userEmail: user.email,
+      quantidade,
+      searchVaga,
+      min,
+      max,
+      front,
+      back,
+      full,
+      level,
+    });
+  }
+  else{
+    res.render("ver-vagas", {
+      vagasEncontradas,
+      quantidade,
+      searchVaga,
+      min,
+      max,
+      front,
+      back,
+      full,
+      level,
+    });
+  }
+
+  // const decodedToken = jwt.verify(token, `${JWT_KEY}`);
+  
+  // const user = await Usuario.findOne({ email: decodedToken.email });
+
+  
+
+  // res.render("ver-vagas", {
+  //   vagasEncontradas,
+  //   userEmail: user.email,
+  //   quantidade,
+  //   searchVaga,
+  //   min,
+  //   max,
+  //   front,
+  //   back,
+  //   full,
+  //   level,
+  // });
 });
 
 function userLogged() {
