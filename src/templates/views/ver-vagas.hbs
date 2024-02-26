@@ -12,6 +12,7 @@
     <script src="/scripts/verVaga.js" defer></script>
     <script src="/scripts/home.js" defer></script>
     <script src="/scripts/animate.js" defer></script>
+    <script src="/scripts/acoesVaga.js" defer></script>
 </head>
 <body>
     {{>header}}
@@ -160,6 +161,12 @@
             <span class="text-gray-12 bg-gray-6 rounded py-[2px] px-3 text-[.75rem] 2xl:text-[.95rem]">R$ {{this.salary}}</span>
             <span class="text-gray-12 bg-gray-6 rounded py-[2px] px-3 text-[.75rem] 2xl:text-[.95rem]">{{this.level}}</span>
           </div>
+          {{#equals ../userEmail this.createdBy}}
+          <div class="acoesVaga absolute text-gray-13 hidden w-[168px] bg-gray-1 rounded">
+            <a href="/editar-vaga/{{this.id}}" class="editar-vaga flex text-[1.1rem] gap-2 py-3 px-4 hover:bg-blue-10 hover:text-gray-1"><i class="ri-edit-box-line"></i>Editar vaga</a>
+            <a href="/excluir-vaga/{{this.id}}" class="excluir-vaga flex text-[1.1rem] hover:bg-red-600 hover:text-gray-1 gap-2 py-3 px-4"><i class=" ri-delete-bin-2-line "></i>Excluir vaga</a>
+          </div>
+          {{/equals}}
           <a href="/vagas/{{this.id}}" class="bg-blue-10 px-4 py-1 h-fit w-fit text-gray-1 rounded mt-auto">Candidatar-se</a>
         </div>
         {{/each}}
@@ -203,6 +210,12 @@
             <span class="text-gray-12 bg-gray-6 rounded py-[2px] px-3 text-[.75rem] 2xl:text-[.95rem]">R$ {{this.salary}}</span>
             <span class="text-gray-12 bg-gray-6 rounded py-[2px] px-3 text-[.75rem] 2xl:text-[.95rem]">{{this.level}}</span>
           </div>
+          {{#equals ../userEmail this.createdBy}}
+          <div class="acoesVaga absolute text-gray-13 hidden w-[168px] bg-gray-1 rounded">
+            <a href="/editar-vaga/{{this.id}}" class="editar-vaga flex text-[1.1rem] gap-2 py-3 px-4 hover:bg-blue-10 hover:text-gray-1"><i class="ri-edit-box-line"></i>Editar vaga</a>
+            <a href="/excluir-vaga/{{this.id}}" class="excluir-vaga flex text-[1.1rem] hover:bg-red-600 hover:text-gray-1 gap-2 py-3 px-4"><i class=" ri-delete-bin-2-line "></i>Excluir vaga</a>
+          </div>
+          {{/equals}}
           <a href="/vagas/{{this.id}}" class="bg-blue-10 px-4 py-1 h-fit w-fit text-gray-1 rounded mt-auto 2xl:mt-5">Candidatar-se</a>
         </div>
         {{/each}}
